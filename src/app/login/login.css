@@ -1,8 +1,12 @@
 .login {
   min-height: 100vh;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+
 }
 .description {
+  max-width: 781px;
   position: relative;
   background-color: var(--darkColor);
   display: flex;
@@ -103,7 +107,7 @@ form button.btn:focus-visible,
 form button.btn:focus {
   background-color: var(--darkColor) !important;
   color: var(--sugerColor) !important;
-  border: none !important;
+  border: 1px solid var(--darkColor) !important;
 }
 form button.btn:focus {
   background-color: var(--darkColor);
@@ -113,4 +117,13 @@ form button.btn:focus {
   position: absolute;
   left: 8px;
   bottom: 5px;
+}
+
+.eyes {
+  color: transparent;
+  position: absolute;
+  left: 30px;
+  top: 40%;
+  transform: translateY(-100%);
+  cursor: pointer;
 }

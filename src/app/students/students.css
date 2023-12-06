@@ -1,0 +1,115 @@
+.student{
+    display: flex;
+    justify-content: space-between;
+}
+.form form input {
+    width: 503px;
+    height: 57px;
+    background-color: rgba(217, 217, 217, 0.6);
+    border-radius: 12px;
+    border: none;
+    padding: 4px 60px ;
+}
+form input:focus-visible{
+    border: none !important;
+    outline: none;
+}
+.form .search{
+    position: relative;
+}
+.form .search span img{
+    position: absolute;
+    top: 50%;
+    right: 35px;
+    transform: translateY(-50%);
+}
+.form .search button{
+    padding: 0 9px;
+    overflow: hidden;
+    width: 60px;
+    height: 57px;
+    border-radius: 12px;
+    margin-right: 21px;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    transition: 0.6s width;
+}
+.form .search button img{
+    transition: 0.6s transform;
+}
+.form .search button span{
+    text-wrap: nowrap;
+    display: none;
+}
+.form .search button:hover{
+    width: 159px;
+    & span{
+        display: inline;
+    }
+    & img{
+        transform: rotateZ(45deg);  
+    }
+}
+.fillter {
+    display: flex;
+    justify-content: space-between;
+    width: 670px;
+}
+.fillter select {
+    font-size: 17px;
+    font-weight: bold;
+    height: 52px;
+    width: 261px;
+    padding: 6px 22px;
+    border-radius: 12px;
+    border: 1px solid #000;
+}
+.fillter .submit button {
+    height: 52px;
+    width: 110px;
+    border-radius: 12px;
+}
+.actions span{
+    cursor: pointer;
+}
+.delete img{
+    border: none;
+    outline: none;
+}
+.ant-modal-content{
+    margin-top: 20vh;
+    height: 215px;
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 12px;
+
+}
+.ant-modal-title{
+    font-size: 20px !important;
+    font-weight:900 !important;
+}
+.ant-modal-footer{
+    direction: ltr;
+}
+div.ant-modal-footer > button.ant-btn.css-dev-only-do-not-override-6j9yrn.ant-btn-primary{
+    background-color: #DE3932;
+    outline: none !important;
+    width: 146px;
+    height: 50px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.ant-btn.css-dev-only-do-not-override-6j9yrn.ant-btn-auto{
+    outline: none !important;
+}
+.ant-btn.css-dev-only-do-not-override-6j9yrn.ant-btn-default{
+    width: 146px;
+    height: 50px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: bolder;
+}

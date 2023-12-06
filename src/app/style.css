@@ -15,11 +15,15 @@ nav a {
 }
 nav {
   min-height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
   background-color: var(--darkColor);
   color: var(--sugerColor);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 300px;
 }
 nav .logo {
   display: flex;

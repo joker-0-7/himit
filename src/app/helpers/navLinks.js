@@ -27,7 +27,7 @@ const Lists = [
     id: 4,
     name: "الطلاب",
     icon: "/images/icons/university.png",
-    link: "/seating-numbers",
+    link: "/students",
   },
   {
     id: 5,
