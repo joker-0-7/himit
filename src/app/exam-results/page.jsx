@@ -5,3 +5,4 @@ const ExamResults = () => {
     </div>
   );
 };
+export default ExamResults;

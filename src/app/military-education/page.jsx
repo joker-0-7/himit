@@ -5,3 +5,4 @@ const MilitaryEducation = () => {
     </div>
   );
 };
+export default MilitaryEducation;

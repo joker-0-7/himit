@@ -5,3 +5,4 @@ const Committees = () => {
     </div>
   );
 };
+export default Committees;

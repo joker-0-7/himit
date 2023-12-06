@@ -5,3 +5,4 @@ const ClassSchedules = () => {
     </div>
   );
 };
+export default ClassSchedules;
