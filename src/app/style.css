@@ -1,0 +1,80 @@
+:root {
+  --darkColor: #060a0f;
+  --lightColor: #ffffff;
+  --sugerColor: #f9f9f9;
+  --darkColorOpacity: rgba(6, 10, 15, 0.7);
+  --activeLink: #de3932;
+  --activeLinkShadow: drop-shadow(0 0 9px #de3932);
+}
+body {
+  font-family: "Almarai", sans-serif;
+}
+nav a {
+  color: var(--sugerColor);
+  text-decoration: none;
+}
+nav {
+  min-height: 100vh;
+  background-color: var(--darkColor);
+  color: var(--sugerColor);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+nav .logo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+}
+nav .logo .heading {
+  max-width: 178px;
+}
+nav .logo h2 {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--lightColor);
+}
+nav .list ul li {
+  margin-bottom: 40px;
+  /* padding-right: 55px; */
+  position: relative;
+  list-style: none;
+}
+nav .list ul li a {
+  /* position: relative; */
+  font-size: 20px;
+  font-weight: bold;
+}
+nav .list ul li a.active::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: var(--activeLink);
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  right: -10px;
+  transform: translateY(-50%);
+  filter: drop-shadow(0 0 5px var(--activeLink));
+}
+nav .footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+nav .footer-nav .data-user h4 {
+  font-size: 15px;
+  font-weight: bold;
+}
+nav .footer-nav .data-user .name h4 {
+  color: var(--sugerColor);
+}
+nav .footer-nav .data-user .num h4 {
+  opacity: 0.6;
+  color: var(--lightColor);
+  letter-spacing: 2px;
+}
+nav .footer-nav .log-out img {
+  cursor: pointer;
+}

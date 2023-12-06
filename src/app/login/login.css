@@ -1,0 +1,116 @@
+.login {
+  min-height: 100vh;
+  overflow: hidden;
+}
+.description {
+  position: relative;
+  background-color: var(--darkColor);
+  display: flex;
+  min-height: 100vh;
+  color: var(--sugerColor);
+  flex-direction: column;
+  justify-content: center;
+}
+.description .img-login img {
+  position: absolute;
+  left: -50%;
+  bottom: 0px;
+  transform: translateX(25%) rotateY(173deg);
+}
+.description .logo {
+  margin-bottom: 54px;
+}
+.description .heading {
+  margin-bottom: 40px;
+}
+.description .heading h1 {
+  font-size: 44px;
+  font-weight: bolder;
+}
+
+.description .info {
+  position: relative;
+  max-width: 525px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.description .info::before,
+.description .info::after {
+  content: "";
+  position: absolute;
+  background-color: var(--sugerColor);
+  border-radius: 6px;
+}
+.description .info::before {
+  width: 33px;
+  height: 4px;
+  left: 50%;
+  transform: translateX(-13px);
+  bottom: -55px;
+}
+.description .info::after {
+  width: 11px;
+  height: 2px;
+  left: 50%;
+  bottom: -53.5px;
+  transform: translateX(25px);
+}
+.login .form {
+  padding-top: 74px;
+  position: relative;
+}
+.col-8.form .container .heading-form h2 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 26px;
+}
+.col-8.form .container form {
+  width: 580px;
+  margin: 0 auto;
+}
+.col-8.form .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 172px);
+}
+.login .form .logo-form img {
+  position: absolute;
+  bottom: 0px;
+  left: -50px;
+  transform: rotateX(-22deg);
+}
+form input {
+  height: 62px;
+  width: 580px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--inputNotActive);
+  padding: 6px 26px;
+  margin-bottom: 38px;
+}
+form button.btn {
+  background-color: var(--darkColor);
+  color: var(--sugerColor);
+  margin-top: 35px;
+}
+form button.btn:hover,
+form button.btn:active,
+form button.btn:focus-visible,
+form button.btn:focus {
+  background-color: var(--darkColor) !important;
+  color: var(--sugerColor) !important;
+  border: none !important;
+}
+form button.btn:focus {
+  background-color: var(--darkColor);
+  color: var(--sugerColor);
+}
+.col-12.position-relative label {
+  position: absolute;
+  left: 8px;
+  bottom: 5px;
+}
