@@ -7,16 +7,20 @@ import Students from "../helpers/students";
 import "./students.css";
 const Student = () => {
   const [open, setOpen] = useState(false);
-  const [students, setStudents] = useState([]);
-  const showModal = () => {
+  const [name, setName] = useState("");
+  const [squad, setSquad] = useState("");
+  const [section, setSection] = useState("");
+  const [users, setUsers] = useState(Students);
+  const showModal = (e) => {
     setOpen(true);
+    setName(e);
   };
 
   const hideModal = () => {
     setOpen(false);
   };
-  const handleDelete = () => {
-    console.log("done del");
+  const handleDelete = (e) => {
+    console.log(name);
     hideModal();
   };
   return (
@@ -49,8 +53,11 @@ const Student = () => {
         </div>
         <div className="fillter">
           <div className="section">
-            <select className="form-control">
-              <option value="" selected disabled>
+            <select
+              className="form-control"
+              onChange={(e) => setSection(e.target.value)}
+            >
+              <option value="يرجي اختيار الشعبة" selected disabled>
                 يرجي اختيار الشعبة
               </option>
               <option value="علوم حاسب">علوم حاسب</option>
@@ -60,8 +67,11 @@ const Student = () => {
             </select>
           </div>
           <div className="Squad">
-            <select className="form-control">
-              <option value="" selected disabled>
+            <select
+              className="form-control"
+              onChange={(e) => setSquad(e.target.value)}
+            >
+              <option value="يرجي اختيار الفرقة" selected disabled>
                 يرجي اختيار الفرقة
               </option>
               <option value="الفرقة الأولي">الفرقة الأولي</option>
@@ -88,62 +98,71 @@ const Student = () => {
               </tr>
             </thead>
             <tbody>
-              {Students.map((Student) => {
+              {Students.map((student, index) => {
                 return (
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>
-                      <Image
-                        src="/images/students/student.png"
-                        width={90}
-                        height={90}
-                        alt="احمد ماهر احمد ابراهيم شعيب"
-                      />
-                    </td>
-                    <td>
-                      <div className="data">
-                        <div className="name">احمد ماهر احمد ابراهيم شعيب</div>
-                        <div className="actions mt-4">
-                          <span className="edit">
-                            <Image
-                              src="/images/icons/actions/edit.png"
-                              width={25}
-                              height={25}
-                              alt="edit"
-                            />
-                          </span>
-                          <span className="delete me-3">
-                            <Button type="auto" onClick={showModal}>
+                  <>
+                    <tr key={student.id}>
+                      <th scope="row">{index}</th>
+                      <td>
+                        <Image
+                          src={`/images/students/${student.image}`}
+                          width={90}
+                          height={90}
+                          alt={student.name}
+                        />
+                      </td>
+                      <td>
+                        <div className="data">
+                          <div className="name">{student.name}</div>
+                          <div className="actions mt-4">
+                            <span className="edit">
                               <Image
-                                src="/images/icons/actions/delete.png"
+                                src="/images/icons/actions/edit.png"
                                 width={25}
                                 height={25}
                                 alt="edit"
                               />
-                            </Button>
-                            <Modal
-                              title="حذف الطالب"
-                              open={open}
-                              onOk={handleDelete}
-                              onCancel={hideModal}
-                              okText="حذف"
-                              cancelText="الغاء"
-                            >
-                              <h5>هل انت متأكد من حذف الطالب ؟</h5>
-                            </Modal>
-                          </span>
+                            </span>
+                            <span className="delete me-3">
+                              <Button
+                                type="auto"
+                                onClick={() => {
+                                  showModal(student.name);
+                                }}
+                              >
+                                <Image
+                                  src="/images/icons/actions/delete.png"
+                                  width={25}
+                                  height={25}
+                                  alt="edit"
+                                />
+                              </Button>
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>نظم ومعلومات ادارية</td>
-                    <td>الرابعة</td>
-                    <td>مستجد</td>
-                    <td>عام</td>
-                  </tr>
+                      </td>
+                      <td>{student.section}</td>
+                      <td>{student.squad}</td>
+                      <td>{student.studyCase}</td>
+                      <td>{student.spec}</td>
+                    </tr>
+                  </>
                 );
               })}
             </tbody>
           </table>
+          <Modal
+            title="حذف الطالب"
+            open={open}
+            onOk={(e) => {
+              handleDelete(e.parent);
+            }}
+            onCancel={hideModal}
+            okText="حذف"
+            cancelText="الغاء"
+          >
+            <h5>هل انت متأكد من حذف الطالب ؟</h5>
+          </Modal>
         </div>
       </div>
     </div>
