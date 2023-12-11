@@ -1,17 +1,32 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./login.css";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import IsLogin from "../components/IsLogin";
+
 const Login = () => {
   const [num, setNum] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useState("");
   const [show, setShow] = useState(false);
-  const handleSubmit = (e) => {
+  const router = useRouter();
+  useEffect(() => {
+    setAuth(window.localStorage.getItem("auth"));
+  }, []);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("num=>" + num + "password=>" + password);
-    const api = "http:localhost:5000/api";
-    axios.post(`${api}/login`, { num, password });
+    await axios
+      .post("http://localhost:5000/users/login", { num, password })
+      .then((res) => {
+        console.log(res);
+        window.localStorage.setItem("auth", "auth");
+        router.push("/students");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="login text-center">
@@ -68,50 +83,54 @@ const Login = () => {
           </div>
         </div>
         <div className="container">
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-12">
-                <div className="heading-form">
-                  <h2 className="text-end">تسجيل الدخول</h2>
+          {auth ? (
+            <IsLogin handleSubmit={handleSubmit} />
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-12">
+                  <div className="heading-form">
+                    <h2 className="text-end">تسجيل الدخول</h2>
+                  </div>
+                </div>
+                <div className="col-12">
+                  <input
+                    type="text"
+                    placeholder="ادخل رقمك القومي"
+                    maxLength={14}
+                    onChange={(e) => {
+                      setNum(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="col-12 position-relative">
+                  <input
+                    type={show ? "text" : "password"}
+                    placeholder="كلمة السر"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                  <Image
+                    src={`/images/icons/${show ? "show" : "hide"}.png`}
+                    width={17}
+                    height={17}
+                    alt="show and hide password"
+                    className="eyes"
+                    onClick={() => {
+                      setShow(!show);
+                    }}
+                  />
+                  <label>نسيت كلمة السر؟</label>
+                </div>
+                <div className="col-12">
+                  <button className="btn w-100" type="submit">
+                    دخول
+                  </button>
                 </div>
               </div>
-              <div className="col-12">
-                <input
-                  type="text"
-                  placeholder="ادخل رقمك القومي"
-                  maxLength={14}
-                  onChange={(e) => {
-                    setNum(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="col-12 position-relative">
-                <input
-                  type={show ? "text" : "password"}
-                  placeholder="كلمة السر"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-                <Image
-                  src={`/images/icons/${show ? "show" : "hide"}.png`}
-                  width={17}
-                  height={17}
-                  alt="show and hide password"
-                  className="eyes"
-                  onClick={() => {
-                    setShow(!show);
-                  }}
-                />
-                <label>نسيت كلمة السر؟</label>
-              </div>
-              <div className="col-12">
-                <button className="btn w-100" type="submit">
-                  دخول
-                </button>
-              </div>
-            </div>
-          </form>
+            </form>
+          )}
         </div>
       </div>
     </div>

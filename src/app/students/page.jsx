@@ -1,16 +1,33 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal } from "antd";
 import Nav from "../components/Nav";
-import Students from "../helpers/students";
+import { useRouter } from "next/navigation";
+// import Students from "../helpers/students";
 import "./students.css";
+import axios from "axios";
 const Student = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [squad, setSquad] = useState("");
   const [section, setSection] = useState("");
-  const [users, setUsers] = useState(Students);
+  const [users, setUsers] = useState([]);
+  const router = useRouter();
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/users/students`
+      );
+      setUsers(data);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const showModal = (e) => {
     setOpen(true);
     setName(e);
@@ -22,6 +39,9 @@ const Student = () => {
   const handleDelete = (e) => {
     console.log(name);
     hideModal();
+  };
+  const editStudent = (e) => {
+    router.push(`/students/${e}`);
   };
   return (
     <div className="student">
@@ -98,11 +118,11 @@ const Student = () => {
               </tr>
             </thead>
             <tbody>
-              {Students.map((student, index) => {
+              {users.map((student, index) => {
                 return (
                   <>
                     <tr key={student.id}>
-                      <th scope="row">{index}</th>
+                      <th scope="row">{index + 1}</th>
                       <td>
                         <Image
                           src={`/images/students/${student.image}`}
@@ -121,6 +141,9 @@ const Student = () => {
                                 width={25}
                                 height={25}
                                 alt="edit"
+                                onClick={() => {
+                                  editStudent(student._id);
+                                }}
                               />
                             </span>
                             <span className="delete me-3">

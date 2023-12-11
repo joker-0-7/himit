@@ -1,0 +1,63 @@
+.add-student{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+}
+.add-student .container{
+    display: flex;
+    flex-direction: column;
+    min-height: 75vh;
+    justify-content: space-between;
+    align-items: center;
+}
+.form .main h1{
+    position: relative;
+    margin-right: 46px;
+    font-size: 27px;
+    font-weight: bold;
+}
+.form  .main h1::before{
+    content: '';
+    position: absolute;
+    right: -46px;
+    width: 15px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgba(6, 10, 15, 0.87);
+}
+.form form input,
+.form form select{
+    height: 52px;
+    border-radius: 8px;
+    background-color: rgba(217, 217, 217, 0.5);
+    font-size: 19px;
+}
+div.image label.image {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    line-height: 90px;
+    text-align: center;
+    cursor: pointer;
+}
+div.image .actions span{
+    cursor: pointer;
+}
+.form form button {
+    width: 123px;
+    height: 47px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bolder;
+}
+.form form button.submit{
+    background-color: #060A0F;
+    color: #F9F9F9;
+
+}
+.form form button.cancle{
+    border: 1px solid #060A0F;
+    margin-right: 10px;
+}

@@ -127,3 +127,42 @@ form button.btn:focus {
   transform: translateY(-100%);
   cursor: pointer;
 }
+form .hello-user { 
+  height: 91px;
+  width: 580px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--inputNotActive);
+  padding: 6px 110px 6px 26px;
+  margin-bottom: 38px;
+}
+.col-12.position-relative label {
+  position: absolute;
+  left: 8px;
+  bottom: 5px;
+}
+span.user-img img{
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+span.del {
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+form .hello-user h2{
+  font-size: 18px;
+  font-weight: bold;
+  color: rgba(6, 10, 15, 0.7);
+  line-height: 91px;
+  user-select: none;
+}
+form .hello-user h2 span.name{
+  color: #060A0F;
+}

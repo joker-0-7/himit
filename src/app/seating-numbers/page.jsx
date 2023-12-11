@@ -5,4 +5,4 @@ const SeatingNumbers = () => {
     </div>
   );
 };
-export default Notifications;
+export default SeatingNumbers;
