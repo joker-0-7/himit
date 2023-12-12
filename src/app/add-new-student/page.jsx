@@ -7,6 +7,8 @@ import axios from "axios";
 import FormStudent from "../components/formStudent";
 
 const AddStudent = () => {
+  const [imageURLS, setImageURLS] = useState([]);
+  const [images, setImages] = useState([]);
   const [student, setStudent] = useState({
     name: "",
     num: "",
@@ -14,24 +16,36 @@ const AddStudent = () => {
     squad: "",
     section: "",
     password: "",
+    Specialization: "",
   });
-  const [image, setImage] = useState("");
-
+  const uploadImageToClient = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setImages((imageList) => [...imageList, e.target.files[0]]);
+      setImageURLS((urlList) => [
+        ...urlList,
+        URL.createObjectURL(e.target.files[0]),
+      ]);
+    }
+  };
   const handleChange = (e) => {
     setStudent({ ...student, [e.target.name]: e.target.value });
   };
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("img", file);
-    setImage([...formData]);
-  };
   const handleSubmit = async (e) => {
+    const formdata = new FormData();
+    formdata.append("img", images[0]);
+    formdata.append("name", student.name);
+    formdata.append("num", student.num);
+    formdata.append("studyCase", student.studyCase);
+    formdata.append("squad", student.squad);
+    formdata.append("section", student.section);
+    formdata.append("password", student.password);
+    formdata.append("Specialization", student.Specialization);
     e.preventDefault();
     await axios
-      .post(`${process.env.NEXT_PUBLIC_API}/users/add-new-user`, student)
+      .post(`${process.env.NEXT_PUBLIC_API}/users/add-new-user`, formdata)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+    console.log(student);
   };
   return (
     <div className="add-student">
@@ -54,9 +68,11 @@ const AddStudent = () => {
             handleSubmit={handleSubmit}
             student={student}
             setStudent={setStudent}
-            image={image}
-            handleImage={handleImage}
-            setImage={setImage}
+            imageURLS={imageURLS}
+            setImages={setImages}
+            setImageURLS={setImageURLS}
+            images={images}
+            uploadImageToClient={uploadImageToClient}
             page="addNew"
           />
         </div>

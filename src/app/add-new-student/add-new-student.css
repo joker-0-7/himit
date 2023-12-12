@@ -41,6 +41,8 @@ div.image label.image {
     line-height: 90px;
     text-align: center;
     cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 div.image .actions span{
     cursor: pointer;

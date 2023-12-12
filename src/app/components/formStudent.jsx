@@ -3,11 +3,10 @@ const FormStudent = ({
   handleChange,
   handleSubmit,
   student,
-  handleImage,
-  setStudent,
   page,
-  image,
-  setImage,
+  uploadImageToClient,
+  imageURLS,
+  images,
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -64,6 +63,18 @@ const FormStudent = ({
           <div className="study-case">
             <input
               type="text"
+              name="Specialization"
+              onChange={handleChange}
+              value={student.Specialization}
+              className="form-control"
+              placeholder="التخصص"
+            />
+          </div>
+        </div>
+        <div className="col-6">
+          <div className="study-case">
+            <input
+              type="text"
               name="studyCase"
               onChange={handleChange}
               value={student.studyCase}
@@ -97,9 +108,20 @@ const FormStudent = ({
           </div>
         </div>
         <div className="image d-flex">
-          <label className="image">
-            dfd
-            <input type="file" hidden onChange={handleImage} name="image" />
+          <label
+            className="image"
+            style={
+              imageURLS.length > 0
+                ? { backgroundImage: `url(${imageURLS[0]})` }
+                : {}
+            }
+          >
+            <input
+              type="file"
+              hidden
+              onChange={uploadImageToClient}
+              name="image"
+            />
           </label>
           <div className="actions">
             <span className="edit me-3 mb-4 mt-1 d-block">

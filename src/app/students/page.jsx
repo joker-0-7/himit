@@ -4,14 +4,11 @@ import { useEffect, useState } from "react";
 import { Button, Modal } from "antd";
 import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
-// import Students from "../helpers/students";
 import "./students.css";
 import axios from "axios";
 const Student = () => {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [squad, setSquad] = useState("");
-  const [section, setSection] = useState("");
+  const [student, setStudent] = useState("");
   const [users, setUsers] = useState([]);
   const router = useRouter();
   useEffect(() => {
@@ -23,22 +20,36 @@ const Student = () => {
         `${process.env.NEXT_PUBLIC_API}/users/students`
       );
       setUsers(data);
-      console.log(data);
     } catch (err) {
       console.log(err);
     }
   };
   const showModal = (e) => {
     setOpen(true);
-    setName(e);
+    setStudent(e);
   };
 
   const hideModal = () => {
     setOpen(false);
   };
-  const handleDelete = (e) => {
-    console.log(name);
-    hideModal();
+  const handleDelete = async (e) => {
+    try {
+      const del = await axios
+        .delete(
+          `${process.env.NEXT_PUBLIC_API}/users/delete-student/${student._id}`
+        )
+        .then(() => {
+          setOpen(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    setOpen(false);
+    getData();
+    window.navigation.reload();
   };
   const editStudent = (e) => {
     router.push(`/students/${e}`);
@@ -59,7 +70,13 @@ const Student = () => {
                   alt="search"
                 />
               </span>
-              <button className="btn btn-dark d-flex ">
+              <button
+                className="btn btn-dark d-flex"
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/add-new-student");
+                }}
+              >
                 <Image
                   src="/images/icons/plus.png"
                   width={20}
@@ -125,7 +142,7 @@ const Student = () => {
                       <th scope="row">{index + 1}</th>
                       <td>
                         <Image
-                          src={`/images/students/${student.image}`}
+                          src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
                           width={90}
                           height={90}
                           alt={student.name}
@@ -150,7 +167,7 @@ const Student = () => {
                               <Button
                                 type="auto"
                                 onClick={() => {
-                                  showModal(student.name);
+                                  showModal(student);
                                 }}
                               >
                                 <Image
@@ -177,9 +194,7 @@ const Student = () => {
           <Modal
             title="حذف الطالب"
             open={open}
-            onOk={(e) => {
-              handleDelete(e.parent);
-            }}
+            onOk={handleDelete}
             onCancel={hideModal}
             okText="حذف"
             cancelText="الغاء"

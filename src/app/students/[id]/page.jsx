@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Nav from "../../components/Nav";
-import "../../add-new-student/add-new-student.css";
+import "../students.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FormStudent from "../../components/formStudent";
@@ -13,6 +13,7 @@ const EditStudint = () => {
     squad: "",
     section: "",
     password: "",
+    Specialization: "",
   });
   useEffect((e) => {
     getData();
