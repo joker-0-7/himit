@@ -6,6 +6,7 @@ import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
 import "./students.css";
 import axios from "axios";
+import Link from "next/link";
 const Student = () => {
   const [open, setOpen] = useState(false);
   const [student, setStudent] = useState("");
@@ -34,22 +35,15 @@ const Student = () => {
   };
   const handleDelete = async (e) => {
     try {
-      const del = await axios
-        .delete(
-          `${process.env.NEXT_PUBLIC_API}/users/delete-student/${student._id}`
-        )
-        .then(() => {
-          setOpen(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const del = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API}/users/delete-student/${student._id}`
+      );
     } catch (err) {
       console.log(err);
     }
     setOpen(false);
     getData();
-    window.navigation.reload();
+    // window.navigation.reload();
   };
   const editStudent = (e) => {
     router.push(`/students/${e}`);
@@ -70,7 +64,8 @@ const Student = () => {
                   alt="search"
                 />
               </span>
-              <button
+              <Link
+                href="/add-new-student"
                 className="btn btn-dark d-flex"
                 onClick={(e) => {
                   e.preventDefault();
@@ -84,7 +79,7 @@ const Student = () => {
                   alt="add"
                 />
                 <span>اضافة طالب</span>
-              </button>
+              </Link>
             </div>
           </form>
         </div>

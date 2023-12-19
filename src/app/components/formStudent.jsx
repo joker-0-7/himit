@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 const FormStudent = ({
   handleChange,
   handleSubmit,
@@ -50,12 +51,24 @@ const FormStudent = ({
         <div className="col-6">
           <div className="name">
             <input
-              name="name"
+              name="firstName"
               onChange={handleChange}
-              value={student.name}
+              value={student.firstName}
               type="text"
               className="form-control"
-              placeholder="اسم الطالب"
+              placeholder="الاسم الاول"
+            />
+          </div>
+        </div>
+        <div className="col-6">
+          <div className="name">
+            <input
+              name="lastName"
+              onChange={handleChange}
+              value={student.lastName}
+              type="text"
+              className="form-control"
+              placeholder="الاسم الثاني"
             />
           </div>
         </div>
@@ -111,11 +124,32 @@ const FormStudent = ({
           <label
             className="image"
             style={
-              imageURLS.length > 0
+              page === "editStudint"
+                ? {
+                    backgroundImage: `url(http://localhost:5000/public/images/${student.image})`,
+                    width: "100px",
+                    height: "100px",
+                    border: "none",
+                  }
+                : imageURLS.length > 0
                 ? { backgroundImage: `url(${imageURLS[0]})` }
                 : {}
             }
           >
+            {page === "editStudint" ? (
+              ""
+            ) : (
+              <>
+                {imageURLS.length < 1 && (
+                  <Image
+                    src="/images/icons/add-image.png"
+                    width={40}
+                    height={40}
+                    alt="add-image"
+                  />
+                )}
+              </>
+            )}
             <input
               type="file"
               hidden
@@ -146,7 +180,9 @@ const FormStudent = ({
           <button className="btn submit" type="submit">
             حفظ
           </button>
-          <button className="btn cancle">الغاء</button>
+          <Link className="btn cancle" href="/students">
+            الغاء
+          </Link>
         </div>
       </div>
     </form>

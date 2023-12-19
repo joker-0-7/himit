@@ -47,7 +47,8 @@ div.image label.image {
 div.image .actions span{
     cursor: pointer;
 }
-.form form button {
+.form form button,
+.form form a.cancle {
     width: 123px;
     height: 47px;
     border-radius: 12px;
@@ -59,7 +60,7 @@ div.image .actions span{
     color: #F9F9F9;
 
 }
-.form form button.cancle{
+.form form a.cancle{
     border: 1px solid #060A0F;
     margin-right: 10px;
 }

@@ -10,7 +10,8 @@ const AddStudent = () => {
   const [imageURLS, setImageURLS] = useState([]);
   const [images, setImages] = useState([]);
   const [student, setStudent] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     num: "",
     studyCase: "",
     squad: "",
@@ -33,7 +34,8 @@ const AddStudent = () => {
   const handleSubmit = async (e) => {
     const formdata = new FormData();
     formdata.append("img", images[0]);
-    formdata.append("name", student.name);
+    formdata.append("firstName", student.firstName);
+    formdata.append("lastName", student.lastName);
     formdata.append("num", student.num);
     formdata.append("studyCase", student.studyCase);
     formdata.append("squad", student.squad);
