@@ -25,7 +25,7 @@ form input:focus-visible{
     right: 35px;
     transform: translateY(-50%);
 }
-.form .search a{
+.form .search button{
     padding: 0 9px;
     overflow: hidden;
     width: 60px;
@@ -37,14 +37,14 @@ form input:focus-visible{
     align-items: center;
     transition: 0.6s width;
 }
-.form .search a img{
+.form .search button img{
     transition: 0.6s transform;
 }
-.form .search a span{
+.form .search button span{
     text-wrap: nowrap;
     display: none;
 }
-.form .search a:hover{
+.form .search button:hover{
     width: 159px;
     & span{
         display: inline;

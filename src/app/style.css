@@ -82,12 +82,12 @@ nav .footer-nav .data-user .num h4 {
 nav .footer-nav .log-out img {
   cursor: pointer;
 }
-.container{
+.container {
   position: relative;
 }
-.header img{
+/* .header img{
   position: absolute;
   top: 79px;
   left: 50%;
   transform: translateY(-50%);
-}
+} */

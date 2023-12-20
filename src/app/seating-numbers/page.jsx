@@ -15,8 +15,6 @@ const SeatingNumbers = () => {
   const [isClient, setIsClient] = useState(false);
   const [squad, setSquad] = useState("DEFAULT");
   const getData = async () => {
-    const sq = ["علوم حاسب", "محاسبة", "نظم ومعلومات", "ادارة اعمال"];
-    const nums = [1, 2, 3, 4];
     try {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API}/users/students`
@@ -26,7 +24,6 @@ const SeatingNumbers = () => {
         console.log(s, count[s.section]);
       });
       setStudent(data);
-      // console.log(count);
     } catch (error) {
       console.log(error);
     }
@@ -203,7 +200,6 @@ const SeatingNumbers = () => {
           </div>
         </div>
       </div>
-      {console.log(count)}
     </div>
   ) : (
     ""

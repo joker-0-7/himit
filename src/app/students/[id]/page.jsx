@@ -6,12 +6,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import FormStudent from "../../components/formStudent";
 const EditStudint = () => {
-  const [imageURLS, setImageURLS] = useState([]);
-  const [images, setImages] = useState([]);
-
   const [student, setStudent] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     num: "",
     studyCase: "",
     squad: "",
@@ -69,8 +65,6 @@ const EditStudint = () => {
           handleSubmit={handleSubmit}
           student={student}
           setStudent={setStudent}
-          imageURLS={imageURLS}
-          images={images}
           page="editStudint"
         />
       </div>
