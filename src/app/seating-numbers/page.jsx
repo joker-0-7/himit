@@ -5,12 +5,7 @@ import "./seating.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const SeatingNumbers = () => {
-  const [count, setCount] = useState({
-    "علوم حاسب": [],
-    محاسبة: [],
-    "نظم ومعلومات": [],
-    "ادارة اعمال": [],
-  });
+  const [count, setCount] = useState([]);
   const [student, setStudent] = useState([]);
   const [isClient, setIsClient] = useState(false);
   const [squad, setSquad] = useState("DEFAULT");
@@ -19,10 +14,6 @@ const SeatingNumbers = () => {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API}/users/students`
       );
-      data.map((s) => {
-        setCount({ ...count, [s.section]: [...[s]] });
-        console.log(s, count[s.section]);
-      });
       setStudent(data);
     } catch (error) {
       console.log(error);
@@ -32,6 +23,18 @@ const SeatingNumbers = () => {
     setIsClient(true);
     getData();
   }, []);
+  setTimeout(() => {
+    const organizedData = {};
+    student.forEach((item) => {
+      const section = item.section;
+      if (!organizedData[section]) {
+        organizedData[section] = [];
+      }
+      organizedData[section].push(item);
+    });
+    console.log(organizedData);
+    setCount(organizedData);
+  }, 5000);
   return isClient ? (
     <div className="seating-numbers">
       <Nav />
@@ -67,7 +70,7 @@ const SeatingNumbers = () => {
                 </th>
               </tr>
             </thead>
-
+            <br />
             <tbody>
               <tr>
                 <th scope="row">علوم الحاسب</th>
@@ -93,7 +96,7 @@ const SeatingNumbers = () => {
                   />
                 </td>
               </tr>
-
+              <br />
               <tr>
                 <th scope="row">محاسبة</th>
                 <td>
@@ -118,7 +121,7 @@ const SeatingNumbers = () => {
                   />
                 </td>
               </tr>
-
+              <br />
               <tr>
                 <th scope="row">نظم ومعلومات ادارية</th>
                 <td>
@@ -143,7 +146,7 @@ const SeatingNumbers = () => {
                   />
                 </td>
               </tr>
-
+              <br />
               <tr>
                 <th scope="row">ادارة اعمال</th>
                 <td>
@@ -183,19 +186,27 @@ const SeatingNumbers = () => {
           <div className="counts w-100">
             <div className="count w-100">
               <span className="text-end">علوم الحاسب</span>
-              <span className="text-start">{count["علوم حاسب"].length}</span>
+              <span className="text-start">
+                {count["علوم حاسب"] ? count["علوم حاسب"].length : 0}
+              </span>
             </div>
             <div className="count w-100">
               <span className="text-end">محاسبة</span>
-              <span className="text-start">{count["محاسبة"].length}</span>
+              <span className="text-start">
+                {count["محاسبة"] ? count["محاسبة"].length : 0}
+              </span>
             </div>
             <div className="count w-100">
               <span className="text-end">نظم ومعلومات ادارية</span>
-              <span className="text-start">{count["نظم ومعلومات"].length}</span>
+              <span className="text-start">
+                {count["نظم ومعلومات"] ? count["نظم ومعلومات"].length : 0}
+              </span>
             </div>
             <div className="count w-100">
               <span className="text-end">ادارة اعمال</span>
-              <span className="text-start">{count["ادارة اعمال"].length}</span>
+              <span className="text-start">
+                {count["ادارة اعمال"] ? count["ادارة اعمال"].length : 0}
+              </span>
             </div>
           </div>
         </div>
