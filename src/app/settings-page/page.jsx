@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
-// import ReactQuill from "react-quill";
+
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 import "react-quill/dist/quill.snow.css";
 
@@ -25,7 +25,7 @@ const Settings = () => {
             <Header />
           </div>
           <div className="col-12">
-            <ReactQuill theme="snow" value={value} onChange={setValue} />
+            <ReactQuill theme="snow"/>
           </div>
         </div>
       </div>
