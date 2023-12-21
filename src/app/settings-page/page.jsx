@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
 import ReactQuill from "react-quill";
@@ -7,8 +7,13 @@ import "react-quill/dist/quill.snow.css";
 import "./setting.css";
 const Settings = () => {
   const [value, setValue] = useState("");
+  const [client, setClient] = useState(false);
 
-  return (
+  useEffect(() => {
+    setClient(true);
+  }, 0);
+
+  return client ? (
     <div className="settings">
       <Nav />
       <div className="container">
@@ -22,6 +27,8 @@ const Settings = () => {
         </div>
       </div>
     </div>
+  ) : (
+    ""
   );
 };
 export default Settings;
