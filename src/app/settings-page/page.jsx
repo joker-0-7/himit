@@ -1,4 +1,5 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
