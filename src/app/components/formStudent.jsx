@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 const FormStudent = ({
   handleChange,
   handleSubmit,
@@ -55,7 +56,7 @@ const FormStudent = ({
               value={student.firstName}
               type="text"
               className="form-control"
-              placeholder="اسم الطالب"
+              placeholder="الاسم الاول"
             />
           </div>
         </div>
@@ -67,7 +68,7 @@ const FormStudent = ({
               value={student.lastName}
               type="text"
               className="form-control"
-              placeholder="اسم الطالب"
+              placeholder="الاسم الثاني"
             />
           </div>
         </div>
@@ -179,7 +180,9 @@ const FormStudent = ({
           <button className="btn submit" type="submit">
             حفظ
           </button>
-          <button className="btn cancle">الغاء</button>
+          <Link className="btn cancle" href="/students">
+            الغاء
+          </Link>
         </div>
       </div>
     </form>

@@ -1,0 +1,9 @@
+.settings{
+    min-height: 100vh;
+}
+.settings .container{
+    min-height: 80vh;
+    display: flex;
+    /* width: 100%; */
+    
+}

@@ -1,7 +1,15 @@
+import DefaultPage from "../components/DefaultPage";
+import Header from "../components/Headr";
+import Nav from "../components/Nav";
+import "./main.css";
 const Committees = () => {
   return (
     <div className="committees">
-      <h1>Committees</h1>
+      <Nav />
+      <div className="container">
+        <Header />
+        <DefaultPage page="اللجان" />
+      </div>
     </div>
   );
 };

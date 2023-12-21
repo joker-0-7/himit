@@ -82,12 +82,46 @@ nav .footer-nav .data-user .num h4 {
 nav .footer-nav .log-out img {
   cursor: pointer;
 }
-.container {
+.container{
   position: relative;
 }
-/* .header img{
+.header img{
   position: absolute;
   top: 79px;
   left: 50%;
   transform: translateY(-50%);
-} */
+}
+.header form{
+  top: 79px;
+  position: absolute;
+  transform: translateY(-50%);
+  right: 0;
+}
+.header form input {
+  width: 503px !important;
+  height: 57px !important;
+  background-color: rgba(217, 217, 217, 0.6);
+  border-radius: 12px;
+  border: none;
+  padding: 4px 60px !important;
+}
+form input:focus-visible{
+  border: none !important;
+  outline: none;
+}
+.header .search{
+  position: relative;
+}
+.header .search span img{
+  position: absolute;
+  top: 50%;
+  right: 35px;
+  transform: translateY(-50%);
+}
+.default-page{
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}

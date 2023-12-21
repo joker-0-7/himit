@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import "./seating.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Header from "../components/Headr";
 const SeatingNumbers = () => {
   const [count, setCount] = useState({});
   const [student, setStudent] = useState([]);
@@ -62,14 +63,7 @@ const SeatingNumbers = () => {
     <div className="seating-numbers">
       <Nav />
       <div className="container">
-        <div className="header">
-          <Image
-            src="/images/logo/dark-logo.png"
-            width={73}
-            height={73}
-            alt="logo"
-          />
-        </div>
+        <Header />
         <form>
           <table className="table table-borderless">
             <thead>

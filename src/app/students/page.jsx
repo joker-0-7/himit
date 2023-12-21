@@ -6,17 +6,12 @@ import Nav from "../components/Nav";
 import { useRouter } from "next/navigation";
 import "./students.css";
 import axios from "axios";
+import Link from "next/link";
 const Student = () => {
   const [open, setOpen] = useState(false);
   const [student, setStudent] = useState("");
   const [users, setUsers] = useState([]);
   const router = useRouter();
-  const [fill, setFill] = useState([]);
-  const [fillter, setFillter] = useState({
-    section: "",
-    squad: "",
-  });
-
   useEffect(() => {
     getData();
   }, []);
@@ -38,28 +33,20 @@ const Student = () => {
   const hideModal = () => {
     setOpen(false);
   };
-  const handleDelete = async () => {
-    await axios.delete(
-      `${process.env.NEXT_PUBLIC_API}/users/delete-student/${student._id}`
-    );
-    console.log("sdfsdfsd");
+  const handleDelete = async (e) => {
+    try {
+      const del = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API}/users/delete-student/${student._id}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
     setOpen(false);
-    // getData();
-    // setOpen(false);
+    getData();
     // window.navigation.reload();
   };
   const editStudent = (e) => {
     router.push(`/students/${e}`);
-  };
-  const fillterUsrs = (e) => {
-    setFillter({ ...fillter, [e.target.name]: e.target.value });
-  };
-  const filltering = () => {
-    users.filter((e) => {
-      if (e.section === fillter.section && e.squad === fillter.squad) {
-        fill.push(e);
-      }
-    });
   };
   return (
     <div className="student">
@@ -77,7 +64,8 @@ const Student = () => {
                   alt="search"
                 />
               </span>
-              <button
+              <Link
+                href="/add-new-student"
                 className="btn btn-dark d-flex"
                 onClick={(e) => {
                   e.preventDefault();
@@ -91,7 +79,7 @@ const Student = () => {
                   alt="add"
                 />
                 <span>اضافة طالب</span>
-              </button>
+              </Link>
             </div>
           </form>
         </div>
@@ -99,8 +87,7 @@ const Student = () => {
           <div className="section">
             <select
               className="form-control"
-              name="section"
-              onChange={fillterUsrs}
+              onChange={(e) => setSection(e.target.value)}
             >
               <option value="يرجي اختيار الشعبة" selected disabled>
                 يرجي اختيار الشعبة
@@ -111,11 +98,10 @@ const Student = () => {
               <option value="ادارة اعمال">ادارة اعمال</option>
             </select>
           </div>
-          <div className="squad">
+          <div className="Squad">
             <select
               className="form-control"
-              name="squad"
-              onChange={fillterUsrs}
+              onChange={(e) => setSquad(e.target.value)}
             >
               <option value="يرجي اختيار الفرقة" selected disabled>
                 يرجي اختيار الفرقة
@@ -127,9 +113,7 @@ const Student = () => {
             </select>
           </div>
           <div className="submit">
-            <button className="btn btn-dark" onClick={filltering}>
-              بحث
-            </button>
+            <button className="btn btn-dark">بحث</button>
           </div>
         </div>
         <div className="users mt-5">
