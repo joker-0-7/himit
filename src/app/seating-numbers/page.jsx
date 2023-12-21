@@ -5,10 +5,11 @@ import "./seating.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const SeatingNumbers = () => {
-  const [count, setCount] = useState([]);
+  const [count, setCount] = useState({});
   const [student, setStudent] = useState([]);
   const [isClient, setIsClient] = useState(false);
   const [squad, setSquad] = useState("DEFAULT");
+
   const getData = async () => {
     try {
       const { data } = await axios.get(
@@ -19,11 +20,8 @@ const SeatingNumbers = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    setIsClient(true);
-    getData();
-  }, []);
-  setTimeout(() => {
+
+  const countData = () => {
     const organizedData = {};
     student.forEach((item) => {
       const section = item.section;
@@ -32,9 +30,34 @@ const SeatingNumbers = () => {
       }
       organizedData[section].push(item);
     });
-    console.log(organizedData);
     setCount(organizedData);
-  }, 5000);
+  };
+
+  const handleSquad = async (e) => {
+    const squadValue = e.target.value;
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/users/students`
+      );
+      const filtering =
+        squadValue !== "DEFAULT"
+          ? data.filter((s) => s.squad === squadValue)
+          : data;
+      setStudent(filtering);
+      console.log(student);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setIsClient(true);
+    getData();
+  }, []);
+
+  useEffect(() => {
+    countData();
+  }, [student]);
   return isClient ? (
     <div className="seating-numbers">
       <Nav />
@@ -57,9 +80,9 @@ const SeatingNumbers = () => {
                     name="squad"
                     className="form-control"
                     defaultValue={squad}
-                    onChange={(e) => setSquad(e.target.value)}
+                    onChange={handleSquad}
                   >
-                    <option value="DEFAULT" selected disabled>
+                    <option value="DEFAULT" selected>
                       يرجي اختيار الفرقة
                     </option>
                     <option value="الفرقة الأولي">الفرقة الأولي</option>
@@ -177,39 +200,39 @@ const SeatingNumbers = () => {
             ارسال
           </button>
           <button className="btn cancle">الغاء</button>
+          <div className="data">
+            <div className="heading w-100">
+              <h5 className="text-light text-end ">اجمالي عدد الطلاب</h5>
+              <hr className="text-light" />
+            </div>
+            <div className="counts w-100">
+              <div className="count w-100">
+                <span className="text-end">علوم الحاسب</span>
+                <span className="text-start">
+                  {count["علوم حاسب"] ? count["علوم حاسب"].length : 0}
+                </span>
+              </div>
+              <div className="count w-100">
+                <span className="text-end">محاسبة</span>
+                <span className="text-start">
+                  {count["محاسبة"] ? count["محاسبة"].length : 0}
+                </span>
+              </div>
+              <div className="count w-100">
+                <span className="text-end">نظم ومعلومات ادارية</span>
+                <span className="text-start">
+                  {count["نظم ومعلومات"] ? count["نظم ومعلومات"].length : 0}
+                </span>
+              </div>
+              <div className="count w-100">
+                <span className="text-end">ادارة اعمال</span>
+                <span className="text-start">
+                  {count["ادارة اعمال"] ? count["ادارة اعمال"].length : 0}
+                </span>
+              </div>
+            </div>
+          </div>
         </form>
-        <div className="data">
-          <div className="heading w-100">
-            <h5 className="text-light text-end ">اجمالي عدد الطلاب</h5>
-            <hr className="text-light" />
-          </div>
-          <div className="counts w-100">
-            <div className="count w-100">
-              <span className="text-end">علوم الحاسب</span>
-              <span className="text-start">
-                {count["علوم حاسب"] ? count["علوم حاسب"].length : 0}
-              </span>
-            </div>
-            <div className="count w-100">
-              <span className="text-end">محاسبة</span>
-              <span className="text-start">
-                {count["محاسبة"] ? count["محاسبة"].length : 0}
-              </span>
-            </div>
-            <div className="count w-100">
-              <span className="text-end">نظم ومعلومات ادارية</span>
-              <span className="text-start">
-                {count["نظم ومعلومات"] ? count["نظم ومعلومات"].length : 0}
-              </span>
-            </div>
-            <div className="count w-100">
-              <span className="text-end">ادارة اعمال</span>
-              <span className="text-start">
-                {count["ادارة اعمال"] ? count["ادارة اعمال"].length : 0}
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   ) : (
