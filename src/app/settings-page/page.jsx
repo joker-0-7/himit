@@ -14,7 +14,7 @@ const Settings = () => {
 
   useEffect(() => {
     setClient(true);
-  }, 0);
+  }, []);
 
   return client ? (
     <div className="settings">
