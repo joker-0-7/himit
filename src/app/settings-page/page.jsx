@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
 
-const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 import "react-quill/dist/quill.snow.css";
+const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 
 import "./setting.css";
 const Settings = () => {
@@ -25,7 +25,7 @@ const Settings = () => {
             <Header />
           </div>
           <div className="col-12">
-            <ReactQuill theme="snow"/>
+            <ReactQuill theme="snow">  </ReactQuill>
           </div>
         </div>
       </div>
