@@ -1,22 +1,18 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import {useState, useMemo } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
 
 import "react-quill/dist/quill.snow.css";
-const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 
 import "./setting.css";
+import ReactQuillComp from "../components/ReactQuill";
 const Settings = () => {
   const [value, setValue] = useState("");
-  const [client, setClient] = useState(false);
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
 
-  useEffect(() => {
-    setClient(true);
-  }, []);
-
-  return client ? (
+  return (
     <div className="settings">
       <Nav />
       <div className="container">
@@ -25,13 +21,11 @@ const Settings = () => {
             <Header />
           </div>
           <div className="col-12">
-            <ReactQuill theme="snow">  </ReactQuill>
+            <ReactQuill theme="snow" value={value} onChange={setValue} />
           </div>
         </div>
       </div>
     </div>
-  ) : (
-    ""
-  );
+  )
 };
 export default Settings;
