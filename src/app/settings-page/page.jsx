@@ -3,11 +3,8 @@ import dynamic from "next/dynamic";
 import {useState, useMemo } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
-
 import "react-quill/dist/quill.snow.css";
-
 import "./setting.css";
-import ReactQuillComp from "../components/ReactQuill";
 const Settings = () => {
   const [value, setValue] = useState("");
   const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
