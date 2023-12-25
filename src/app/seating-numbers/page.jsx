@@ -7,10 +7,13 @@ import axios from "axios";
 import Header from "../components/Headr";
 const SeatingNumbers = () => {
   const [count, setCount] = useState({});
-  const [student, setStudent] = useState([]);
+  const [student, setStudent] = useState([{ one: 1 }, { tow: 2 }]);
   const [isClient, setIsClient] = useState(false);
   const [squad, setSquad] = useState("DEFAULT");
-
+  const [one, setOne] = useState({ from: "", to: "" });
+  const [two, setTwo] = useState({ from: "", to: "" });
+  const [three, setThree] = useState({ from: "", to: "" });
+  const [four, setFour] = useState({ from: "", to: "" });
   const getData = async () => {
     try {
       const { data } = await axios.get(
@@ -21,7 +24,6 @@ const SeatingNumbers = () => {
       console.log(error);
     }
   };
-
   const countData = () => {
     const organizedData = {};
     student.forEach((item) => {
@@ -33,7 +35,6 @@ const SeatingNumbers = () => {
     });
     setCount(organizedData);
   };
-
   const handleSquad = async (e) => {
     const squadValue = e.target.value;
     try {
@@ -50,21 +51,29 @@ const SeatingNumbers = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     setIsClient(true);
     getData();
   }, []);
-
   useEffect(() => {
     countData();
   }, [student]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let from = +one.from;
+    for (let i = 0; i < student.length; i++) {
+      student[i].seatingNumbers = from;
+      console.log(student[i]);
+      from++;
+    }
+  };
   return isClient ? (
     <div className="seating-numbers">
       <Nav />
+
       <div className="container">
         <Header />
-        <form>
+        <form onSubmit={handleSubmit}>
           <table className="table table-borderless">
             <thead>
               <tr>
@@ -96,6 +105,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="من"
+                    onChange={(e) => {
+                      setOne({ ...one, from: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
@@ -103,6 +115,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="الي"
+                    onChange={(e) => {
+                      setOne({ ...one, to: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
