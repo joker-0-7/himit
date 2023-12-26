@@ -1,9 +1,29 @@
-.settings{
-    min-height: 100vh;
+.settings {
+  min-height: 100vh;
 }
-.settings .container{
-    min-height: 80vh;
-    display: flex;
-    /* width: 100%; */
-    
+.settings .container {
+  min-height: 100vh;
+  display: flex;
+}
+.ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+  left: 0 !important;
+  right: auto !important;
+}
+.ql-container.ql-snow {
+  height: calc(506px - 91px);
+}
+.ql-editor {
+  direction: rtl !important;
+  text-align: right !important;
+}
+.nav.nav-pills.mb-3 button {
+  color: #060a0f;
+  font-size: 15px;
+  font-weight: bolder;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: transparent;
+  border-radius: 0;
+  border-bottom: 3px solid #060a0f;
 }

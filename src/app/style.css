@@ -82,16 +82,16 @@ nav .footer-nav .data-user .num h4 {
 nav .footer-nav .log-out img {
   cursor: pointer;
 }
-.container{
+.header {
   position: relative;
 }
-.header img{
+.header img {
   position: absolute;
   top: 79px;
   left: 50%;
   transform: translateY(-50%);
 }
-.header form{
+.header form {
   top: 79px;
   position: absolute;
   transform: translateY(-50%);
@@ -105,20 +105,20 @@ nav .footer-nav .log-out img {
   border: none;
   padding: 4px 60px !important;
 }
-form input:focus-visible{
+form input:focus-visible {
   border: none !important;
   outline: none;
 }
-.header .search{
+.header .search {
   position: relative;
 }
-.header .search span img{
+.header .search span img {
   position: absolute;
   top: 50%;
   right: 35px;
   transform: translateY(-50%);
 }
-.default-page{
+.default-page {
   min-height: 80vh;
   display: flex;
   align-items: center;

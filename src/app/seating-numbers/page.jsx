@@ -1,19 +1,18 @@
 "use client";
-import Image from "next/image";
 import Nav from "../components/Nav";
-import "./seating.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../components/Headr";
+import "./seating.css";
 const SeatingNumbers = () => {
   const [count, setCount] = useState({});
-  const [student, setStudent] = useState([{ one: 1 }, { tow: 2 }]);
+  const [student, setStudent] = useState([]);
   const [isClient, setIsClient] = useState(false);
   const [squad, setSquad] = useState("DEFAULT");
-  const [one, setOne] = useState({ from: "", to: "" });
-  const [two, setTwo] = useState({ from: "", to: "" });
-  const [three, setThree] = useState({ from: "", to: "" });
-  const [four, setFour] = useState({ from: "", to: "" });
+  const [one, setOne] = useState({ from: "", to: "", num: "" });
+  const [two, setTwo] = useState({ from: "", to: "", num: "" });
+  const [three, setThree] = useState({ from: "", to: "", num: "" });
+  const [four, setFour] = useState({ from: "", to: "", num: "" });
   const getData = async () => {
     try {
       const { data } = await axios.get(
@@ -47,6 +46,7 @@ const SeatingNumbers = () => {
           : data;
       setStudent(filtering);
       console.log(student);
+      console.log(count);
     } catch (error) {
       console.log(error);
     }
@@ -58,13 +58,33 @@ const SeatingNumbers = () => {
   useEffect(() => {
     countData();
   }, [student]);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let from = +one.from;
-    for (let i = 0; i < student.length; i++) {
-      student[i].seatingNumbers = from;
-      console.log(student[i]);
-      from++;
+    const data = [];
+    const processCategory = (category, from, num) => {
+      if (count[category] && count[category].length > 0) {
+        let currentFrom = +from;
+        let currentNum = +num;
+        for (let i = 0; i < count[category].length; i++) {
+          count[category][i].seatingNumbers = currentFrom;
+          count[category][i].committeeNumber = currentNum;
+          data.push(count[category][i]);
+          currentFrom++;
+        }
+      }
+    };
+    processCategory("علوم حاسب", one.from, one.num);
+    processCategory("محاسبة", two.from, two.num);
+    processCategory("نظم ومعلومات", three.from, three.num);
+    processCategory("ادارة اعمال", four.from, four.num);
+    console.log(data);
+    try {
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API}/users/add-seating-numbers`,
+        data
+      );
+    } catch (error) {
+      console.error(error);
     }
   };
   return isClient ? (
@@ -125,6 +145,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="رقم المجموعة"
+                    onChange={(e) => {
+                      setOne({ ...one, num: e.target.value });
+                    }}
                   />
                 </td>
               </tr>
@@ -136,6 +159,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="من"
+                    onChange={(e) => {
+                      setTwo({ ...two, from: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
@@ -143,6 +169,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="الي"
+                    onChange={(e) => {
+                      setTwo({ ...two, to: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
@@ -150,6 +179,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="رقم المجموعة"
+                    onChange={(e) => {
+                      setTwo({ ...two, num: e.target.value });
+                    }}
                   />
                 </td>
               </tr>
@@ -161,6 +193,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="من"
+                    onChange={(e) => {
+                      setThree({ ...three, from: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
@@ -168,6 +203,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="الي"
+                    onChange={(e) => {
+                      setThree({ ...three, to: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
@@ -175,6 +213,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="رقم المجموعة"
+                    onChange={(e) => {
+                      setThree({ ...three, num: e.target.value });
+                    }}
                   />
                 </td>
               </tr>
@@ -186,6 +227,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="من"
+                    onChange={(e) => {
+                      setFour({ ...four, from: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
@@ -193,6 +237,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="الي"
+                    onChange={(e) => {
+                      setFour({ ...four, to: e.target.value });
+                    }}
                   />
                 </td>
                 <td>
@@ -200,6 +247,9 @@ const SeatingNumbers = () => {
                     type="text"
                     className="form-control"
                     placeholder="رقم المجموعة"
+                    onChange={(e) => {
+                      setFour({ ...four, num: e.target.value });
+                    }}
                   />
                 </td>
               </tr>

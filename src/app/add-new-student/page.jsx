@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import Nav from "../components/Nav";
-import "./add-new-student.css";
 import { useState } from "react";
 import axios from "axios";
 import FormStudent from "../components/formStudent";
+import "./add-new-student.css";
 
 const AddStudent = () => {
   const [imageURLS, setImageURLS] = useState([]);
