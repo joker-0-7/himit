@@ -33,50 +33,78 @@ const Settings = () => {
                     aria-controls="pills-home"
                     aria-selected="true"
                   >
-                    Home
+                    اعدادات عامه
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
                   <button
                     className="nav-link"
-                    id="pills-profile-tab"
+                    id="faculty-departments-tab"
                     data-bs-toggle="pill"
-                    data-bs-target="#pills-profile"
+                    data-bs-target="#faculty-departments"
                     type="button"
                     role="tab"
-                    aria-controls="pills-profile"
+                    aria-controls="faculty-departments"
                     aria-selected="false"
                   >
-                    Profile
+                    اعضاء هيئة التدريس
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
                   <button
                     className="nav-link"
-                    id="pills-contact-tab"
+                    id="institute-vision-tab"
                     data-bs-toggle="pill"
-                    data-bs-target="#pills-contact"
+                    data-bs-target="#institute-vision"
                     type="button"
                     role="tab"
-                    aria-controls="pills-contact"
+                    aria-controls="institute-vision"
                     aria-selected="false"
                   >
-                    Contact
+                    رؤية المعهد
+                  </button>
+                </li>
+
+                <li className="nav-item" role="presentation">
+                  <button
+                    className="nav-link"
+                    id="goal-application-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#goal-application"
+                    type="button"
+                    role="tab"
+                    aria-controls="goal-application"
+                    aria-selected="false"
+                  >
+                    الهدف من التطبيق
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
                   <button
                     className="nav-link"
-                    id="pills-disabled-tab"
+                    id="usage-policy-tab"
                     data-bs-toggle="pill"
-                    data-bs-target="#pills-disabled"
+                    data-bs-target="#usage-policy"
                     type="button"
                     role="tab"
-                    aria-controls="pills-disabled"
+                    aria-controls="usage-policy"
                     aria-selected="false"
-                    disabled
                   >
-                    Disabled
+                    سياسة الاستخدام
+                  </button>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <button
+                    className="nav-link"
+                    id="change-password-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#change-password"
+                    type="button"
+                    role="tab"
+                    aria-controls="change-password"
+                    aria-selected="false"
+                  >
+                    تغيير الباسورد
                   </button>
                 </li>
               </ul>
@@ -88,67 +116,213 @@ const Settings = () => {
                   aria-labelledby="main-setting-tap"
                   tabIndex={0}
                 >
-                  ...
+                  <form onSubmit={handleSubmit}>
+                    <Quill value={value} setValue={setValue} />
+                    <div className="btns" style={{ paddingTop: "47px" }}>
+                      <button
+                        className="btn btn-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        حفظ
+                      </button>
+                      <button
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                        className="btn btn-outline-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                        }}
+                      >
+                        الغاء
+                      </button>
+                    </div>
+                  </form>
                 </div>
                 <div
                   className="tab-pane fade"
-                  id="pills-profile"
+                  id="faculty-departments"
                   role="tabpanel"
-                  aria-labelledby="pills-profile-tab"
+                  aria-labelledby="faculty-departments-tab"
                   tabIndex={0}
                 >
-                  ...
+                  <form onSubmit={handleSubmit}>
+                    <Quill value={value} setValue={setValue} />
+                    <div className="btns" style={{ paddingTop: "47px" }}>
+                      <button
+                        className="btn btn-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        حفظ
+                      </button>
+                      <button
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                        className="btn btn-outline-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                        }}
+                      >
+                        الغاء
+                      </button>
+                    </div>
+                  </form>
                 </div>
                 <div
                   className="tab-pane fade"
-                  id="pills-contact"
+                  id="institute-vision"
                   role="tabpanel"
-                  aria-labelledby="pills-contact-tab"
+                  aria-labelledby="institute-vision-tab"
                   tabIndex={0}
                 >
-                  ...
+                  <form onSubmit={handleSubmit}>
+                    <Quill value={value} setValue={setValue} />
+                    <div className="btns" style={{ paddingTop: "47px" }}>
+                      <button
+                        className="btn btn-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        حفظ
+                      </button>
+                      <button
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                        className="btn btn-outline-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                        }}
+                      >
+                        الغاء
+                      </button>
+                    </div>
+                  </form>
                 </div>
                 <div
                   className="tab-pane fade"
-                  id="pills-disabled"
+                  id="goal-application"
                   role="tabpanel"
-                  aria-labelledby="pills-disabled-tab"
+                  aria-labelledby="goal-application-tab"
                   tabIndex={0}
                 >
-                  ...
+                  <form onSubmit={handleSubmit}>
+                    <Quill value={value} setValue={setValue} />
+                    <div className="btns" style={{ paddingTop: "47px" }}>
+                      <button
+                        className="btn btn-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        حفظ
+                      </button>
+                      <button
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                        className="btn btn-outline-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                        }}
+                      >
+                        الغاء
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div
+                  className="tab-pane fade"
+                  id="usage-policy"
+                  role="tabpanel"
+                  aria-labelledby="usage-policy-tab"
+                  tabIndex={0}
+                >
+                  <form onSubmit={handleSubmit}>
+                    <Quill value={value} setValue={setValue} />
+                    <div className="btns" style={{ paddingTop: "47px" }}>
+                      <button
+                        className="btn btn-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        حفظ
+                      </button>
+                      <button
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                        className="btn btn-outline-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                        }}
+                      >
+                        الغاء
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div
+                  className="tab-pane fade"
+                  id="change-password"
+                  role="tabpanel"
+                  aria-labelledby="change-password-tab"
+                  tabIndex={0}
+                >
+                  <form onSubmit={handleSubmit}>
+                    <Quill value={value} setValue={setValue} />
+                    <div className="btns" style={{ paddingTop: "47px" }}>
+                      <button
+                        className="btn btn-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        حفظ
+                      </button>
+                      <button
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                        className="btn btn-outline-dark"
+                        style={{
+                          width: "123px",
+                          height: "47px",
+                        }}
+                      >
+                        الغاء
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-12">
-            <form onSubmit={handleSubmit}>
-              <Quill value={value} setValue={setValue} />
-              <div className="btns" style={{ paddingTop: "47px" }}>
-                <button
-                  className="btn btn-dark"
-                  style={{
-                    width: "123px",
-                    height: "47px",
-                    marginLeft: "10px",
-                  }}
-                >
-                  حفظ
-                </button>
-                <button
-                  onClick={() => {
-                    window.history.back();
-                  }}
-                  className="btn btn-outline-dark"
-                  style={{
-                    width: "123px",
-                    height: "47px",
-                  }}
-                >
-                  الغاء
-                </button>
-              </div>
-            </form>
-          </div>
+          <div className="col-12"></div>
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@
 }
 .ql-container.ql-snow {
   height: calc(506px - 91px);
+  background-color: rgba(6, 10, 15, 0.2);
 }
 .ql-editor {
   direction: rtl !important;
