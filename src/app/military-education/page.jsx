@@ -2,7 +2,9 @@
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import "./style.css";
+import Image from "next/image";
 const MilitaryEducation = () => {
   const [students, setStudents] = useState([]);
   const [choseStu, setChoseStu] = useState([]);
@@ -147,6 +149,10 @@ const MilitaryEducation = () => {
                             type="text"
                             className="form-control"
                             placeholder="البحث بالرقم القومي"
+                            onChange={(e) => {
+                              setSearch(+e.target.value);
+                              console.log(search);
+                            }}
                           />
                         </div>
                         <div className="col-lg-6 col-sm-12">
@@ -160,7 +166,31 @@ const MilitaryEducation = () => {
                           </div>
                         </div>
                         <div className="col-lg-6 col-sm-12">
-                          <div className="resault"></div>
+                          <div className="resault">
+                            {console.log(students)}
+                            {students.map((student) => {
+                              return (
+                                <div
+                                  className="student mb-3 d-flex"
+                                  key={student.num}
+                                  style={{ justifyContent: "space-evenly" }}
+                                >
+                                  <span className="img">
+                                    <Image
+                                      src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
+                                      width={60}
+                                      height={60}
+                                      alt="name"
+                                      style={{ borderRadius: "50%" }}
+                                    />
+                                  </span>
+                                  <span className="name">
+                                    {student.firstName + " " + student.lastName}{" "}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
                         <div className="row">
                           <div className="col-6">
