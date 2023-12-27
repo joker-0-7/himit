@@ -63,6 +63,12 @@ const MilitaryEducation = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [students]);
 
+  const fillter = () => {
+    students.filter((s) => {
+      s.num == search ? console.log("s") : console.log("r");
+    });
+  };
+
   return (
     <div className="military-education">
       <div className="row">
@@ -151,7 +157,7 @@ const MilitaryEducation = () => {
                             placeholder="البحث بالرقم القومي"
                             onChange={(e) => {
                               setSearch(+e.target.value);
-                              console.log(search);
+                              fillter;
                             }}
                           />
                         </div>
@@ -167,29 +173,32 @@ const MilitaryEducation = () => {
                         </div>
                         <div className="col-lg-6 col-sm-12">
                           <div className="resault">
-                            {console.log(students)}
-                            {students.map((student) => {
-                              return (
-                                <div
-                                  className="student mb-3 d-flex"
-                                  key={student.num}
-                                  style={{ justifyContent: "space-evenly" }}
-                                >
-                                  <span className="img">
-                                    <Image
-                                      src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
-                                      width={60}
-                                      height={60}
-                                      alt="name"
-                                      style={{ borderRadius: "50%" }}
-                                    />
-                                  </span>
-                                  <span className="name">
-                                    {student.firstName + " " + student.lastName}{" "}
-                                  </span>
-                                </div>
-                              );
-                            })}
+                            {students
+                              .filter((student) => student.num == search)
+                              .map((student) => {
+                                return (
+                                  <div
+                                    className="student mb-3 d-flex"
+                                    key={student.num}
+                                    style={{ justifyContent: "space-evenly" }}
+                                  >
+                                    <span className="img">
+                                      <Image
+                                        src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
+                                        width={60}
+                                        height={60}
+                                        alt="name"
+                                        style={{ borderRadius: "50%" }}
+                                      />
+                                    </span>
+                                    <span className="name">
+                                      {student.firstName +
+                                        " " +
+                                        student.lastName}{" "}
+                                    </span>
+                                  </div>
+                                );
+                              })}
                           </div>
                         </div>
                         <div className="row">
