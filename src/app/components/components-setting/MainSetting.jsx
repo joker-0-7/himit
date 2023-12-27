@@ -1,7 +1,15 @@
 import Image from "next/image";
+import { useState } from "react";
 const MainSetting = () => {
+  const [image, setImage] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+  const upImage = (e) => {
+    const [file] = e.target.files;
+    if (file) {
+      setImage(URL.createObjectURL(file));
+    }
   };
   return (
     <div className="main-setting">
@@ -38,8 +46,11 @@ const MainSetting = () => {
           </div>
           <div className="img mt-4">
             <div className="image d-flex">
-              <label className="image">
-                <input type="file" hidden name="image" />
+              <label
+                className="image"
+                style={{ backgroundImage: `url(${image})` }}
+              >
+                <input type="file" hidden name="image" onChange={upImage} />
               </label>
               <div className="actions">
                 <span className="edit me-3 mb-4 mt-1 d-block">
