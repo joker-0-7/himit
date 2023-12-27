@@ -4,6 +4,8 @@ import Header from "../components/Headr";
 import Nav from "../components/Nav";
 import "./setting.css";
 import Quill from "../components/QuillCoponent";
+import MainSetting from "../components/components-setting/MainSetting";
+import FacultyDepartments from "../components/components-setting/FacultyDepartments";
 
 const Settings = () => {
   const [value, setValue] = useState("");
@@ -19,7 +21,7 @@ const Settings = () => {
           <div className="col-12">
             <Header />
           </div>
-          <div className="col-12">
+          <div className="col-12" style={{ minHeight: "60vh" }}>
             <div>
               <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li className="nav-item" role="presentation">
@@ -116,33 +118,7 @@ const Settings = () => {
                   aria-labelledby="main-setting-tap"
                   tabIndex={0}
                 >
-                  <form onSubmit={handleSubmit}>
-                    <Quill value={value} setValue={setValue} />
-                    <div className="btns" style={{ paddingTop: "47px" }}>
-                      <button
-                        className="btn btn-dark"
-                        style={{
-                          width: "123px",
-                          height: "47px",
-                          marginLeft: "10px",
-                        }}
-                      >
-                        حفظ
-                      </button>
-                      <button
-                        onClick={() => {
-                          window.history.back();
-                        }}
-                        className="btn btn-outline-dark"
-                        style={{
-                          width: "123px",
-                          height: "47px",
-                        }}
-                      >
-                        الغاء
-                      </button>
-                    </div>
-                  </form>
+                  <MainSetting />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -151,33 +127,7 @@ const Settings = () => {
                   aria-labelledby="faculty-departments-tab"
                   tabIndex={0}
                 >
-                  <form onSubmit={handleSubmit}>
-                    <Quill value={value} setValue={setValue} />
-                    <div className="btns" style={{ paddingTop: "47px" }}>
-                      <button
-                        className="btn btn-dark"
-                        style={{
-                          width: "123px",
-                          height: "47px",
-                          marginLeft: "10px",
-                        }}
-                      >
-                        حفظ
-                      </button>
-                      <button
-                        onClick={() => {
-                          window.history.back();
-                        }}
-                        className="btn btn-outline-dark"
-                        style={{
-                          width: "123px",
-                          height: "47px",
-                        }}
-                      >
-                        الغاء
-                      </button>
-                    </div>
-                  </form>
+                  <FacultyDepartments />
                 </div>
                 <div
                   className="tab-pane fade"

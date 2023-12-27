@@ -45,8 +45,6 @@ const SeatingNumbers = () => {
           ? data.filter((s) => s.squad === squadValue)
           : data;
       setStudent(filtering);
-      console.log(student);
-      console.log(count);
     } catch (error) {
       console.log(error);
     }
@@ -57,6 +55,7 @@ const SeatingNumbers = () => {
   }, []);
   useEffect(() => {
     countData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [student]);
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -28,3 +28,21 @@
   border-radius: 0;
   border-bottom: 3px solid #060a0f;
 }
+.form form input,
+.form form select {
+  height: 52px;
+  border-radius: 8px;
+  background-color: rgba(217, 217, 217, 0.5);
+  font-size: 19px;
+}
+div.image label.image {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  line-height: 90px;
+  text-align: center;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
