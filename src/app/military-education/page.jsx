@@ -15,6 +15,7 @@ const MilitaryEducation = () => {
   const [toDate, setToDate] = useState("");
   const [search, setSearch] = useState("");
   const [count, setCount] = useState("");
+  const [filtring, serFiltering] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -51,9 +52,14 @@ const MilitaryEducation = () => {
           ? data.filter((s) => s.squad === squadValue)
           : data;
       setStudents(filtering);
+      filteredStudents();
     } catch (error) {
       console.log(error);
     }
+  };
+  const filteredStudents = () => {
+    const fStu = students.filter((s) => s.num.toString().includes(search));
+    serFiltering(fStu);
   };
   useEffect(() => {
     getData();
@@ -62,13 +68,17 @@ const MilitaryEducation = () => {
     countData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [students]);
+  const addToTable = (student) => {
+    const isStudentAlreadyAdded = choseStu.some((s) => s._id === student._id);
 
-  const fillter = () => {
-    students.filter((s) => {
-      s.num == search ? console.log("s") : console.log("r");
-    });
+    if (!isStudentAlreadyAdded) {
+      setChoseStu((prevChoseStu) => [...prevChoseStu, student]);
+    }
   };
-
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    filteredStudents();
+  };
   return (
     <div className="military-education">
       <div className="row">
@@ -106,7 +116,10 @@ const MilitaryEducation = () => {
                         </div>
                         <div className="col-lg-6 col-sm-12">
                           <div className="Squad">
-                            <select className="form-control">
+                            <select
+                              className="form-control"
+                              onChange={handleSquad}
+                            >
                               <option
                                 value="يرجي اختيار الفرقة"
                                 selected
@@ -155,10 +168,8 @@ const MilitaryEducation = () => {
                             type="text"
                             className="form-control"
                             placeholder="البحث بالرقم القومي"
-                            onChange={(e) => {
-                              setSearch(+e.target.value);
-                              fillter;
-                            }}
+                            onChange={handleSearch}
+                            value={search}
                           />
                         </div>
                         <div className="col-lg-6 col-sm-12">
@@ -166,39 +177,57 @@ const MilitaryEducation = () => {
                             <span>اسم الطالب</span>
                             <span>مسلسل</span>
                           </div>
-                          <div className="body d-flex justify-content-between bg-light ps-4 pe-4 pt-3 pb-3">
-                            <span>احمد ماهر احمد ابراهيم شعيب</span>
-                            <span>1</span>
-                          </div>
+                          {choseStu.map((student, index) => {
+                            return (
+                              <div
+                                className="body d-flex justify-content-between bg-light ps-4 pe-4 pt-3 pb-3"
+                                key={index + 1}
+                              >
+                                <span>
+                                  {student.fristName + " " + student.lastName}
+                                </span>
+                                <span>{index + 1}</span>
+                              </div>
+                            );
+                          })}
                         </div>
                         <div className="col-lg-6 col-sm-12">
                           <div className="resault">
-                            {students
-                              .filter((student) => student.num == search)
-                              .map((student) => {
-                                return (
-                                  <div
-                                    className="student mb-3 d-flex"
-                                    key={student.num}
-                                    style={{ justifyContent: "space-evenly" }}
-                                  >
-                                    <span className="img">
-                                      <Image
-                                        src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
-                                        width={60}
-                                        height={60}
-                                        alt="name"
-                                        style={{ borderRadius: "50%" }}
-                                      />
-                                    </span>
-                                    <span className="name">
-                                      {student.firstName +
-                                        " " +
-                                        student.lastName}{" "}
-                                    </span>
-                                  </div>
-                                );
-                              })}
+                            <div className="student">
+                              {search &&
+                                filtring.map((student, i) => {
+                                  return (
+                                    <div key={i}>
+                                      <button
+                                        className="btn btn-light w-100"
+                                        style={{ height: "60px" }}
+                                        onClick={() => {
+                                          addToTable(student);
+                                        }}
+                                      >
+                                        <span className="name">
+                                          {student.fristName +
+                                            " " +
+                                            student.lastName}
+                                        </span>
+                                        <span className="image">
+                                          {student && student.image ? (
+                                            <Image
+                                              src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
+                                              width={50}
+                                              height={50}
+                                              alt={student.name}
+                                            />
+                                          ) : (
+                                            ""
+                                          )}
+                                        </span>
+                                      </button>
+                                      <h1></h1>
+                                    </div>
+                                  );
+                                })}
+                            </div>
                           </div>
                         </div>
                         <div className="row">

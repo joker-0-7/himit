@@ -7,10 +7,13 @@ import { useRouter } from "next/navigation";
 import "./students.css";
 import axios from "axios";
 import Link from "next/link";
+import Actions from "../components/Actions";
+import ModalCopmonent from "../components/Modal";
 const Student = () => {
   const [open, setOpen] = useState(false);
   const [student, setStudent] = useState("");
   const [users, setUsers] = useState([]);
+  const [delId, setDelId] = useState("");
   const router = useRouter();
   useEffect(() => {
     getData();
@@ -27,23 +30,24 @@ const Student = () => {
   };
   const showModal = (e) => {
     setOpen(true);
-    setStudent(e);
+    setStudent(e._id);
+    setDelId(e._id);
   };
 
   const hideModal = () => {
     setOpen(false);
   };
   const handleDelete = async (e) => {
-    try {
-      const del = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API}/users/delete-student/${student._id}`
-      );
-    } catch (err) {
-      console.log(err);
-    }
-    setOpen(false);
-    getData();
-    // window.navigation.reload();
+    console.log(delId);
+    // try {
+    //   const del = await axios.delete(
+    //     `${process.env.NEXT_PUBLIC_API}/users/delete-student/${e}`
+    //   );
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // setOpen(false);
+    // getData();
   };
   const editStudent = (e) => {
     router.push(`/students/${e}`);
@@ -132,70 +136,45 @@ const Student = () => {
             <tbody>
               {users.map((student, index) => {
                 return (
-                  <>
-                    <tr key={student.id}>
-                      <th scope="row">{index + 1}</th>
-                      <td>
-                        <Image
-                          src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
-                          width={90}
-                          height={90}
-                          alt={student.name}
-                        />
-                      </td>
-                      <td>
-                        <div className="data">
-                          <div className="name">{student.name}</div>
-                          <div className="actions mt-4">
-                            <span className="edit">
-                              <Image
-                                src="/images/icons/actions/edit.png"
-                                width={25}
-                                height={25}
-                                alt="edit"
-                                onClick={() => {
-                                  editStudent(student._id);
-                                }}
-                              />
-                            </span>
-                            <span className="delete me-3">
-                              <Button
-                                type="auto"
-                                onClick={() => {
-                                  showModal(student);
-                                }}
-                              >
-                                <Image
-                                  src="/images/icons/actions/delete.png"
-                                  width={25}
-                                  height={25}
-                                  alt="edit"
-                                />
-                              </Button>
-                            </span>
-                          </div>
+                  <tr key={student.id}>
+                    <th scope="row">{index + 1}</th>
+                    <td>
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_API}/public/images/students/${student.image}`}
+                        width={90}
+                        height={90}
+                        alt={student.name}
+                      />
+                    </td>
+                    <td>
+                      <div className="data">
+                        <div className="name">
+                          {student.fristName + " " + student.lastName}
                         </div>
-                      </td>
-                      <td>{student.section}</td>
-                      <td>{student.squad}</td>
-                      <td>{student.studyCase}</td>
-                      <td>{student.spec}</td>
-                    </tr>
-                  </>
+                        <Actions
+                          editStudent={editStudent}
+                          id={student._id}
+                          showModal={showModal}
+                          user={student}
+                        />
+                      </div>
+                    </td>
+                    <td>{student.section}</td>
+                    <td>{student.squad}</td>
+                    <td>{student.studyCase}</td>
+                    <td>{student.spec}</td>
+                  </tr>
                 );
               })}
             </tbody>
           </table>
-          <Modal
-            title="حذف الطالب"
+          <ModalCopmonent
+            showModal={showModal}
+            hideModal={hideModal}
             open={open}
-            onOk={handleDelete}
-            onCancel={hideModal}
-            okText="حذف"
-            cancelText="الغاء"
-          >
-            <h5>هل انت متأكد من حذف الطالب ؟</h5>
-          </Modal>
+            page="student"
+            handleDelete={handleDelete}
+          />
         </div>
       </div>
     </div>

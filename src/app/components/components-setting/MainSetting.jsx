@@ -1,14 +1,41 @@
+"use client";
+import { UserContext } from "@/app/context/userContext";
+import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useContext } from "react";
+
 const MainSetting = () => {
   const [image, setImage] = useState();
-  const handleSubmit = (e) => {
+  const [imgFile, setImgFile] = useState("");
+  const [state, setState] = useContext(UserContext);
+  const [fristName, setFristName] = useState(state && state.user.fristName);
+  const [lastName, setLastName] = useState(state && state.user.lastName);
+  const [num, setNum] = useState(state && state.user.num);
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("img", imgFile);
+    formdata.append("fristName", fristName);
+    formdata.append("lastName", lastName);
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/users/update-data/${state.user._id}`,
+        formdata
+      );
+      // let auth = JSON.parse(window.localStorage.getItem("auth"));
+      // auth.user = data;
+      // window.localStorage.setItem("auth", JSON.stringify(auth));
+      // setState({ ...state, user: data });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const upImage = (e) => {
-    const [file] = e.target.files;
+    const file = e.target.files[0];
     if (file) {
       setImage(URL.createObjectURL(file));
+      setImgFile(file);
     }
   };
   return (
@@ -22,6 +49,8 @@ const MainSetting = () => {
                   type="text"
                   className="form-control"
                   placeholder="الاسم الأول"
+                  value={fristName}
+                  onChange={(e) => setFristName(e.target.value)}
                 />
               </div>
             </div>
@@ -31,6 +60,8 @@ const MainSetting = () => {
                   type="text"
                   className="form-control"
                   placeholder="الاسم الثاني"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
             </div>
@@ -40,6 +71,8 @@ const MainSetting = () => {
                   type="text"
                   className="form-control"
                   placeholder="الرقم القومي"
+                  value={num}
+                  onChange={(e) => setNum(e.target.value)}
                 />
               </div>
             </div>

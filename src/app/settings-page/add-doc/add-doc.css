@@ -1,0 +1,52 @@
+.main h1 {
+  position: relative;
+  margin-right: 46px;
+  font-size: 27px;
+  font-weight: bold;
+}
+.main h1::before {
+  content: "";
+  position: absolute;
+  right: -46px;
+  width: 15px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #060a0fde;
+}
+form input,
+form select {
+  height: 52px;
+  border-radius: 8px;
+  background-color: rgba(217, 217, 217, 0.5);
+  font-size: 19px;
+}
+div.image label.image {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  line-height: 90px;
+  text-align: center;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+div.image .actions span {
+  cursor: pointer;
+}
+form button,
+form a.cancle {
+  width: 123px;
+  height: 47px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bolder;
+}
+form button.submit {
+  background-color: #060a0f;
+  color: #f9f9f9;
+}
+form a.cancle {
+  border: 1px solid #060a0f;
+  margin-right: 10px;
+}

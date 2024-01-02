@@ -125,3 +125,39 @@ form input:focus-visible {
   justify-content: space-evenly;
   flex-direction: column;
 }
+.ant-modal-content {
+  margin-top: 20vh;
+  height: 215px;
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 12px;
+}
+.ant-modal-title {
+  font-size: 20px !important;
+  font-weight: 900 !important;
+}
+.ant-modal-footer {
+  direction: ltr;
+}
+div.ant-modal-footer
+  > button.ant-btn.css-dev-only-do-not-override-6j9yrn.ant-btn-primary {
+  background-color: #de3932;
+  outline: none !important;
+  width: 146px;
+  height: 50px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.ant-btn.css-dev-only-do-not-override-6j9yrn.ant-btn-auto {
+  outline: none !important;
+}
+.ant-btn.css-dev-only-do-not-override-6j9yrn.ant-btn-default {
+  width: 146px;
+  height: 50px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bolder;
+}

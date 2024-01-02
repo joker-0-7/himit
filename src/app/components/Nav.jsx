@@ -1,7 +1,18 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import Lists from "../helpers/navLinks";
+import { UserContext } from "../context/userContext";
+import { useState, useContext } from "react";
+import { useRouter } from "next/navigation";
 const Nav = () => {
+  const [state, setState] = useContext(UserContext);
+  const router = useRouter();
+  const logOut = () => {
+    window.localStorage.removeItem("auth");
+    router.push("/login");
+    setState(null);
+  };
   return (
     <nav className="nav pt-2 pb-5 pe-4 ps-1">
       <div className="logo">
@@ -50,10 +61,12 @@ const Nav = () => {
         </div>
         <div className="data-user">
           <div className="name">
-            <h4>احمد ماهر احمد</h4>
+            <h4>
+              {state ? state.user.fristName + " " + state.user.lastName : ""}
+            </h4>
           </div>
           <div className="num">
-            <h4>30010011528252</h4>
+            <h4>{state && state.user.num}</h4>
           </div>
         </div>
         <div className="log-out">
@@ -62,6 +75,7 @@ const Nav = () => {
             width={25}
             height={25}
             alt="log-out"
+            onClick={logOut}
           />
         </div>
       </div>

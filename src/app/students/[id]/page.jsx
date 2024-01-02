@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import FormStudent from "../../components/formStudent";
 const EditStudint = () => {
-  const [imageURLS, setImageURLS] = useState([]);
-  const [images, setImages] = useState([]);
+  const [image, setImage] = useState();
+  const [imgFile, setImgFile] = useState("");
 
   const [student, setStudent] = useState({
-    firstName: "",
+    fristName: "",
     lastName: "",
     num: "",
     studyCase: "",
@@ -19,7 +19,7 @@ const EditStudint = () => {
     password: "",
     Specialization: "",
   });
-  useEffect((e) => {
+  useEffect(() => {
     getData();
   }, []);
   const getData = async () => {
@@ -40,15 +40,32 @@ const EditStudint = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("img", imgFile);
+    formdata.append("fristName", student.fristName);
+    formdata.append("lastName", student.lastName);
+    formdata.append("num", student.num);
+    formdata.append("squad", student.squad);
+    formdata.append("studyCase", student.studyCase);
+    formdata.append("section", student.section);
+    formdata.append("password", student.password);
+    formdata.append("Specialization", student.Specialization);
     try {
       const data = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/users/update-student/${
           window.location.pathname.split("/")[2]
         }`,
-        student
+        formdata
       );
     } catch (err) {
       console.log(err);
+    }
+  };
+  const upImage = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setImgFile(file);
     }
   };
   return (
@@ -69,8 +86,8 @@ const EditStudint = () => {
           handleSubmit={handleSubmit}
           student={student}
           setStudent={setStudent}
-          imageURLS={imageURLS}
-          images={images}
+          image={image}
+          upImage={upImage}
           page="editStudint"
         />
       </div>

@@ -1,17 +1,22 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./login.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import IsLogin from "../components/IsLogin";
+import { UserContext } from "../context/userContext";
 
 const Login = () => {
   const [num, setNum] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useState("");
   const [show, setShow] = useState(false);
+  const [state, setState] = useContext(UserContext);
   const router = useRouter();
+  const deleteUserFormStorage = () => {
+    window.localStorage.removeItem("auth");
+  };
   useEffect(() => {
     setAuth(window.localStorage.getItem("auth"));
   }, []);
@@ -20,9 +25,9 @@ const Login = () => {
     await axios
       .post("http://localhost:5000/users/login", { num, password })
       .then((res) => {
-        console.log(res);
-        window.localStorage.setItem("auth", "auth");
-        router.push("/students");
+        setState(res.data);
+        window.localStorage.setItem("auth", JSON.stringify(res.data));
+        router.push("/");
       })
       .catch((err) => {
         console.log(err);
@@ -84,7 +89,7 @@ const Login = () => {
         </div>
         <div className="container">
           {auth ? (
-            <IsLogin handleSubmit={handleSubmit} />
+            <IsLogin deleteUserFormStorage={deleteUserFormStorage} />
           ) : (
             <form onSubmit={handleSubmit}>
               <div className="row">

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import "./style.css";
 import Nav from "./components/Nav";
+import { UseProvider } from "./context/userContext";
 export default function Home() {
   return (
     <main>

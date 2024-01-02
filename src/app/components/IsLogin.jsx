@@ -1,7 +1,25 @@
 import Image from "next/image";
-const IsLogin = ({ handleSubmit }) => {
-  const deleteUserFormStorage = () => {
-    window.localStorage.removeItem("auth");
+import { UserContext } from "../context/userContext";
+import { useContext } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+const IsLogin = ({ deleteUserFormStorage }) => {
+  const [state, setState] = useContext(UserContext);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const num = state.user.num;
+      const password = state.user.password;
+      const login = await axios.post("http://localhost:5000/users/login", {
+        num,
+        password,
+      });
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
