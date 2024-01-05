@@ -1,14 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "5000",
-      },
-    ],
-  },
+images: {
+        domains: ['server-hmit-dev.onrender.com'],
+    },
 };
 
 module.exports = nextConfig;
