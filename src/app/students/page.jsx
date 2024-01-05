@@ -140,7 +140,7 @@ const Student = () => {
                     <th scope="row">{index + 1}</th>
                     <td>
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_API}/public/images/students/${student.image}`}
+                        src={`${process.env.NEXT_PUBLIC_API}/public/images/${student.image}`}
                         width={90}
                         height={90}
                         alt={student.name}
