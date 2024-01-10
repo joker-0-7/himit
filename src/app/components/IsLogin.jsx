@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 const IsLogin = ({ deleteUserFormStorage }) => {
   const [state, setState] = useContext(UserContext);
   const router = useRouter();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,8 +44,7 @@ const IsLogin = ({ deleteUserFormStorage }) => {
             </h2>
           </div>
           <span className="del text-danger" onClick={deleteUserFormStorage}>
-            {" "}
-            حذف{" "}
+            حذف
           </span>
         </div>
         <div className="col-12">

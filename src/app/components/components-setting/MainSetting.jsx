@@ -17,16 +17,18 @@ const MainSetting = () => {
     formdata.append("img", imgFile);
     formdata.append("fristName", fristName);
     formdata.append("lastName", lastName);
+    formdata.append("num", num);
     try {
-      const { data } = await axios.post(
+      const data = await axios.put(
         `${process.env.NEXT_PUBLIC_API}/users/update-data/${state.user._id}`,
         formdata
       );
-      // let auth = JSON.parse(window.localStorage.getItem("auth"));
-      // auth.user = data;
-      // window.localStorage.setItem("auth", JSON.stringify(auth));
-      // setState({ ...state, user: data });
-      console.log(data);
+      let auth = JSON.parse(window.localStorage.getItem("auth"));
+      const user = data.data;
+      auth.user = user;
+      window.localStorage.setItem("auth", JSON.stringify(auth));
+      setState({ ...state, user: user });
+      console.log(auth);
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +83,15 @@ const MainSetting = () => {
             <div className="image d-flex">
               <label
                 className="image"
-                style={{ backgroundImage: `url(${image})` }}
+                style={
+                  image
+                    ? { backgroundImage: `url(${image})` }
+                    : {
+                        backgroundImage: `url(${
+                          process.env.NEXT_PUBLIC_API
+                        }/public/images/users/${state && state.user.img} )`,
+                      }
+                }
               >
                 <input type="file" hidden name="image" onChange={upImage} />
               </label>

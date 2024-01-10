@@ -5,6 +5,7 @@ import "../students.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FormStudent from "../../components/formStudent";
+import Header from "@/app/components/Headr";
 const EditStudint = () => {
   const [image, setImage] = useState();
   const [imgFile, setImgFile] = useState("");
@@ -72,14 +73,7 @@ const EditStudint = () => {
     <div className="add-student">
       <Nav />
       <div className="container">
-        <div className="header">
-          <Image
-            src="/images/logo/dark-logo.png"
-            width={73}
-            height={73}
-            alt="logo"
-          />
-        </div>
+        <Header />
 
         <FormStudent
           handleChange={handleChange}

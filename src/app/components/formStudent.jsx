@@ -139,7 +139,7 @@ const FormStudent = ({
             style={
               page === "editStudint"
                 ? {
-                    backgroundImage: `url(http://localhost:5000/public/images/${
+                    backgroundImage: `url(http://localhost:5000/public/images/students/${
                       student && student.image
                     })`,
                     width: "100px",

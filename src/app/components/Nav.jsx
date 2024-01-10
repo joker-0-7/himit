@@ -53,7 +53,9 @@ const Nav = () => {
       <div className="footer-nav">
         <div className="img-user">
           <Image
-            src="/images/home/user-img.png"
+            src={`${process.env.NEXT_PUBLIC_API}/public/images/users/${
+              state && state.user.img
+            }  `}
             width={46}
             height={46}
             alt="img-user"
