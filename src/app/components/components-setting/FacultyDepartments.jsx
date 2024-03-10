@@ -40,7 +40,6 @@ const FacultyDepartments = () => {
         setOpen(false);
     };
     const handleDelete = async (e) => {
-        console.log(delId);
         try {
             const del = await axios.delete(
                 `${process.env.NEXT_PUBLIC_API}/doctor/delete-doctor/${delId}`

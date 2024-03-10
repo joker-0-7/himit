@@ -8,8 +8,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Actions from "../components/Actions";
 import DefaultPage from "../components/DefaultPage";
+import ModalCopmonent from "../components/Modal";
 function ClassSchedules() {
     const [schedules, setSchedules] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [delId, setDelId] = useState("");
+
     const getData = async () => {
         try {
             const data = await axios.get(
@@ -25,6 +29,26 @@ function ClassSchedules() {
     useEffect(() => {
         getData();
     }, []);
+    const showModal = (e) => {
+        setOpen(true);
+        setDelId(e);
+    };
+    const handleDelete = async (e) => {
+        console.log(delId);
+        try {
+            const del = await axios.delete(
+                `${process.env.NEXT_PUBLIC_API}/users/delete-class-schedules/${delId}`
+            );
+            toast.success(del.data.msg);
+        } catch (error) {
+            toast.error(error.response.data.msg);
+        }
+        setOpen(false);
+        getData();
+    };
+    const hideModal = () => {
+        setOpen(false);
+    };
     return (
         <div>
             <Nav />
@@ -58,7 +82,11 @@ function ClassSchedules() {
                                                     <h3>{ele.classRoom}</h3>
                                                 </div>
                                                 <div className="action">
-                                                    <Actions />
+                                                    <Actions
+                                                        showModal={showModal}
+                                                        id={ele._id}
+                                                        user={ele._id}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -75,6 +103,14 @@ function ClassSchedules() {
                                 />
                             )}
                         </div>
+                        <ModalCopmonent
+                            showModal={showModal}
+                            hideModal={hideModal}
+                            open={open}
+                            page="الجدول"
+                            name="الجدول"
+                            handleDelete={handleDelete}
+                        />
                     </div>
                 </div>
             </div>

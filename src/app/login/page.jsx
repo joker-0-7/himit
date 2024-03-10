@@ -8,11 +8,11 @@ import IsLogin from "../components/IsLogin";
 import { UserContext } from "../context/userContext";
 
 const Login = () => {
+    const [state, setState] = useContext(UserContext);
     const [num, setNum] = useState("");
     const [password, setPassword] = useState("");
     const [auth, setAuth] = useState("");
     const [show, setShow] = useState(false);
-    const [state, setState] = useContext(UserContext);
     const router = useRouter();
     const deleteUserFormStorage = () => {
         window.localStorage.removeItem("auth");
@@ -152,4 +152,3 @@ const Login = () => {
     );
 };
 export default Login;
-

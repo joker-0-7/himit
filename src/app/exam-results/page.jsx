@@ -92,6 +92,13 @@ const ExamResults = () => {
         setSubject(updatedSubject);
         console.log(updatedSubject);
     };
+    const delField = () => {
+        if (feildCount.length > 1) {
+            setFeildCount((prevFeildCount) => [
+                ...feildCount.slice(0, feildCount.length - 1),
+            ]);
+        }
+    };
     return (
         <div className="exam-results">
             <div className="row">
@@ -207,52 +214,68 @@ const ExamResults = () => {
                                                         +
                                                     </span>
                                                 </th>
+                                                <th
+                                                    scope="col"
+                                                    onClick={delField}
+                                                >
+                                                    <span className="btn btn-danger">
+                                                        x
+                                                    </span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {users.map((student, index) => {
                                                 return (
-                                                    <tr key={student._id}>
-                                                        <th scope="row">
-                                                            {index + 1}
-                                                        </th>
-                                                        <td>
-                                                            <div className="data">
-                                                                <div className="name">
-                                                                    {`${student.fristName} ${student.lastName}`}
+                                                    <>
+                                                        <tr key={student._id}>
+                                                            <th scope="row">
+                                                                {index + 1}
+                                                            </th>
+                                                            <td>
+                                                                <div className="data">
+                                                                    <div className="name">
+                                                                        {`${student.fristName} ${student.lastName}`}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        {feildCount.map(
-                                                            (ele, index) => {
-                                                                return (
-                                                                    <td
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        <input
-                                                                            type="text"
-                                                                            className="form-control w-50 mx-auto"
-                                                                            name={
-                                                                                subject[
+                                                            </td>
+                                                            {feildCount.map(
+                                                                (
+                                                                    ele,
+                                                                    index
+                                                                ) => {
+                                                                    return (
+                                                                        <>
+                                                                            <td
+                                                                                key={
                                                                                     index
-                                                                                ]
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                handleChange(
-                                                                                    e,
-                                                                                    student._id
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    </td>
-                                                                );
-                                                            }
-                                                        )}
-                                                    </tr>
+                                                                                }
+                                                                            >
+                                                                                <input
+                                                                                    type="text"
+                                                                                    placeholder="النتيجة"
+                                                                                    className="form-control w-50 mx-auto"
+                                                                                    name={
+                                                                                        subject[
+                                                                                            index
+                                                                                        ]
+                                                                                    }
+                                                                                    onChange={(
+                                                                                        e
+                                                                                    ) =>
+                                                                                        handleChange(
+                                                                                            e,
+                                                                                            student._id
+                                                                                        )
+                                                                                    }
+                                                                                />
+                                                                            </td>
+                                                                        </>
+                                                                    );
+                                                                }
+                                                            )}
+                                                        </tr>
+                                                    </>
                                                 );
                                             })}
                                         </tbody>

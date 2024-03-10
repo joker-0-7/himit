@@ -10,6 +10,7 @@ function ExamsTable() {
     const [academicDivision, setAcademicDivision] = useState();
     const [classRoom, setClassRoom] = useState();
     const [type, setType] = useState();
+    const [subject, setSubject] = useState("");
 
     const handleDayChange = (selectedDay) => {
         const selectedDateTime = selectedDay.target.value;
@@ -34,6 +35,7 @@ function ExamsTable() {
             toast.error(error.response.data.msg);
         }
     };
+    const handleSubjectChange = () => {};
     return (
         <div>
             <div className="row">
@@ -181,23 +183,34 @@ function ExamsTable() {
                                         <tbody>
                                             {days.map((day, index) => {
                                                 return (
-                                                    <>
-                                                        <tr className="d-flex justify-content-between align-items-center">
-                                                            <th scope="row">
-                                                                {day}
-                                                            </th>
-                                                            <td>
-                                                                <input
-                                                                    type="datetime-local"
-                                                                    className="form-control w-100"
-                                                                    name={day}
-                                                                    onChange={
-                                                                        handleDayChange
-                                                                    }
-                                                                />
-                                                            </td>
-                                                        </tr>
-                                                    </>
+                                                    <tr
+                                                        key={index}
+                                                        className="d-flex justify-content-between align-items-center"
+                                                    >
+                                                        <th scope="row">
+                                                            {day}
+                                                        </th>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control w-100"
+                                                                name={day}
+                                                                onChange={
+                                                                    handleSubjectChange
+                                                                }
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                type="datetime-local"
+                                                                className="form-control w-100"
+                                                                name={day}
+                                                                onChange={
+                                                                    handleDayChange
+                                                                }
+                                                            />
+                                                        </td>
+                                                    </tr>
                                                 );
                                             })}
                                         </tbody>

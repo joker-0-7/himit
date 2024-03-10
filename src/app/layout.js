@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { UseProvider } from "./context/userContext";
+import { Current } from "./context/current";
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
@@ -23,9 +24,9 @@ export default function RootLayout({ children }) {
                         pauseOnHover
                         theme="light"
                     />
+                    {/* <Current> */}
                     {children}
-                    {/* <ToastContainer /> */}
-
+                    {/* </Current> */}
                     <Script
                         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
                         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

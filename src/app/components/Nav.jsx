@@ -56,10 +56,13 @@ const Nav = () => {
                 <div className="img-user">
                     <Image
                         src={
-                            state &&
-                            `${
-                                process.env.NEXT_PUBLIC_API
-                            }/public/images/users/${state && state.user.img}  `
+                            state
+                                ? `${
+                                      process.env.NEXT_PUBLIC_API
+                                  }/public/images/users/${
+                                      state && state.user.img
+                                  }`
+                                : "/images/icons/log-out.png"
                         }
                         width={46}
                         height={46}

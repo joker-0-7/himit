@@ -250,7 +250,7 @@ const MilitaryEducation = () => {
                                                                                 }
                                                                             >
                                                                                 <button
-                                                                                    className="btn btn-light w-100 d-flex justify-content-evenly align-items-center"
+                                                                                    className="btn btn-light w-100 d-flex justify-content-evenly align-items-center bg-light"
                                                                                     style={{
                                                                                         height: "60px",
                                                                                     }}
