@@ -23,7 +23,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:5000/users/login", { num, password })
+      .post("https://server-hmit.onrender.com/users/login", { num, password })
       .then((res) => {
         setState(res.data);
         window.localStorage.setItem("auth", JSON.stringify(res.data));
