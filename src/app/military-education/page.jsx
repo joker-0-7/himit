@@ -236,7 +236,7 @@ const MilitaryEducation = () => {
                                                 </div>
                                                 <div className="col-lg-6 col-sm-12">
                                                     <div className="resault">
-                                                        <div className="student">
+                                                        <div className="student flex-column">
                                                             {search &&
                                                                 filtring.map(
                                                                     (
@@ -250,7 +250,7 @@ const MilitaryEducation = () => {
                                                                                 }
                                                                             >
                                                                                 <button
-                                                                                    className="btn btn-light w-100 d-flex justify-content-evenly align-items-center"
+                                                                                    className="btn btn-light w-100 d-flex justify-content-evenly align-items-center bg-light"
                                                                                     style={{
                                                                                         height: "60px",
                                                                                     }}
