@@ -9,11 +9,14 @@ import axios from "axios";
 import Link from "next/link";
 import Actions from "../components/Actions";
 import ModalCopmonent from "../components/Modal";
+import Filter from "../components/Filter";
 const Student = () => {
     const [open, setOpen] = useState(false);
     const [student, setStudent] = useState("");
     const [users, setUsers] = useState([]);
     const [delId, setDelId] = useState("");
+    const [squad, setSquad] = useState("");
+    const [section, setSection] = useState("");
     const router = useRouter();
     useEffect(() => {
         getData();
@@ -86,52 +89,12 @@ const Student = () => {
                         </div>
                     </form>
                 </div>
-                <div className="fillter">
-                    <div className="section">
-                        <select
-                            className="form-control"
-                            onChange={(e) => setSection(e.target.value)}
-                        >
-                            <option
-                                value="يرجي اختيار الشعبة"
-                                selected
-                                disabled
-                            >
-                                يرجي اختيار الشعبة
-                            </option>
-                            <option value="علوم حاسب">علوم حاسب</option>
-                            <option value="نظم ومعلومات">نظم ومعلومات</option>
-                            <option value="محاسبة">محاسبة</option>
-                            <option value="ادارة اعمال">ادارة اعمال</option>
-                        </select>
-                    </div>
-                    <div className="Squad">
-                        <select
-                            className="form-control"
-                            onChange={(e) => setSquad(e.target.value)}
-                        >
-                            <option
-                                value="يرجي اختيار الفرقة"
-                                selected
-                                disabled
-                            >
-                                يرجي اختيار الفرقة
-                            </option>
-                            <option value="الفرقة الأولي">الفرقة الأولي</option>
-                            <option value="الفرقة الثانية">
-                                الفرقة الثانية
-                            </option>
-                            <option value="الفرقة الثالثة">
-                                الفرقة الثالثة
-                            </option>
-                            <option value="الفرقة الرابعة">
-                                الفرقة الرابعة
-                            </option>
-                        </select>
-                    </div>
-                    <div className="submit">
-                        <button className="btn btn-dark">بحث</button>
-                    </div>
+                <Filter
+                    setSquad={(e) => setSquad(e.target.value)}
+                    setSection={(e) => setSection(e.target.value)}
+                />
+                <div className="submit">
+                    <button className="btn btn-dark">بحث</button>
                 </div>
                 <div className="users mt-5">
                     <table className="table table-borderless">

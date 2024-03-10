@@ -5,14 +5,31 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./style.css";
 import Image from "next/image";
+import { toast } from "react-toastify";
 const MilitaryEducation = () => {
     const [students, setStudents] = useState([]);
     const [choseStu, setChoseStu] = useState([]);
     const [search, setSearch] = useState("");
     const [count, setCount] = useState("");
     const [filtring, serFiltering] = useState([]);
-    const handleSubmit = (e) => {
+    const [squad, setSquad] = useState("");
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [section, setSection] = useState("");
+    const [num, setNum] = useState("");
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const data = await axios.post(
+                `${process.env.NEXT_PUBLIC_API}/users/mility-edu`,
+                choseStu
+            );
+            toast.success(data.data.msg);
+        } catch (err) {
+            console.log(err);
+            toast.error(err.response.data.msg);
+        }
     };
     const getData = async () => {
         try {
@@ -94,7 +111,12 @@ const MilitaryEducation = () => {
                                             <div className="row gy-5">
                                                 <div className="col-lg-6 col-sm-12">
                                                     <div className="section">
-                                                        <select className="form-control">
+                                                        <select
+                                                            className="form-control"
+                                                            onChange={(e) =>
+                                                                set
+                                                            }
+                                                        >
                                                             <option
                                                                 value="يرجي اختيار الشعبة"
                                                                 selected
@@ -154,6 +176,12 @@ const MilitaryEducation = () => {
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="رقم الدورة"
+                                                        value={num}
+                                                        onChange={(e) =>
+                                                            setNum(
+                                                                e.target.value
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-lg-6 col-sm-12">
@@ -195,9 +223,7 @@ const MilitaryEducation = () => {
                                                                     }
                                                                 >
                                                                     <span>
-                                                                        {student.fristName +
-                                                                            " " +
-                                                                            student.lastName}
+                                                                        {`${student.fristName} ${student.lastName}`}
                                                                     </span>
                                                                     <span>
                                                                         {index +
@@ -254,9 +280,7 @@ const MilitaryEducation = () => {
                                                                                         )}
                                                                                     </span>
                                                                                     <span className="name">
-                                                                                        {student.fristName +
-                                                                                            " " +
-                                                                                            student.lastName}
+                                                                                        {`${student.fristName} ${student.lastName}`}
                                                                                     </span>
                                                                                 </button>
                                                                             </div>

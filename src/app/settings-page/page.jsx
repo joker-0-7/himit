@@ -3,22 +3,17 @@ import { useState } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
 import "./setting.css";
-import Quill from "../components/QuillCoponent";
 import MainSetting from "../components/components-setting/MainSetting";
 import FacultyDepartments from "../components/components-setting/FacultyDepartments";
-import { Button } from "antd";
 import ChangePassword from "../components/components-setting/ChangePassword";
 import GoalApplication from "../components/components-setting/GoalApplication";
 import UsagePolicy from "../components/components-setting/UsagePolicy";
 import VisionAndMission from "../components/components-setting/VisionAndMission";
 
 const Settings = () => {
-    const [value, setValue] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(value);
     };
     const showModal = () => {
         setIsModalOpen(true);

@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Headr";
 import Nav from "../components/Nav";
-import Image from "next/image";
 import axios from "axios";
-
+import Filter from "../components/Filter";
 const ExamResults = () => {
     const [users, setUsers] = useState([]);
-    const [markers, setMarkers] = useState([]);
+    const [section, setSection] = useState("");
+    const [squad, setSquad] = useState("");
+    const [subject, setSubject] = useState([]);
+    const [feildCount, setFeildCount] = useState([1]);
+    const [type, setType] = useState();
     const getData = async () => {
         try {
             const { data } = await axios.get(
@@ -77,6 +80,18 @@ const ExamResults = () => {
         });
     };
     // --------------------------------------------------------------------------------------------//
+    const addField = () => {
+        setFeildCount((prevFeildCount) => [
+            ...prevFeildCount,
+            prevFeildCount.length + 1,
+        ]);
+    };
+    const addSubject = (e, index) => {
+        const updatedSubject = [...subject];
+        updatedSubject[index] = e.target.value;
+        setSubject(updatedSubject);
+        console.log(updatedSubject);
+    };
     return (
         <div className="exam-results">
             <div className="row">
@@ -91,17 +106,107 @@ const ExamResults = () => {
                             </div>
                             <div className="col-12">
                                 <div className="users mt-5">
+                                    <div className="row">
+                                        <Filter
+                                            setSection={(e) =>
+                                                setSection(e.target.value)
+                                            }
+                                            setSquad={(e) =>
+                                                setSquad(e.target.value)
+                                            }
+                                        />
+                                        <div className="inputs col-4">
+                                            <div className="row">
+                                                <div className="col-4 form-check d-flex justify-content-around">
+                                                    <input
+                                                        type="radio"
+                                                        name="type-exam"
+                                                        className="form-check-input float-none"
+                                                        id="one"
+                                                        onChange={(e) => {
+                                                            setType(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="one"
+                                                    >
+                                                        ميد ترم
+                                                    </label>
+                                                </div>
+                                                <div className="col-4 form-check d-flex justify-content-around">
+                                                    <input
+                                                        type="radio"
+                                                        name="type-exam"
+                                                        className="form-check-input float-none"
+                                                        id="two"
+                                                        onChange={(e) => {
+                                                            setType(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="two"
+                                                    >
+                                                        فاينال
+                                                    </label>
+                                                </div>
+                                                <div className="col-4 form-check d-flex justify-content-around">
+                                                    <input
+                                                        type="radio"
+                                                        name="type-exam"
+                                                        className="form-check-input float-none"
+                                                        id="three"
+                                                        onChange={(e) => {
+                                                            setType(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="three"
+                                                    >
+                                                        تخلفات
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <table className="table table-borderless">
                                         <thead className="text-center">
                                             <tr>
                                                 <th scope="col">الرقم</th>
                                                 <th scope="col">اسم الطالب</th>
-                                                <th scope="col">الشعبة</th>
-                                                <th scope="col">الفرقة</th>
-                                                <th scope="col">
-                                                    الحالة الدراسية
+                                                {feildCount.map((ele, i) => {
+                                                    return (
+                                                        <th scope="col" key={i}>
+                                                            <input
+                                                                className="form-control w-50 mx-auto"
+                                                                type="text"
+                                                                placeholder="اسم الماده"
+                                                                onChange={(e) =>
+                                                                    addSubject(
+                                                                        e,
+                                                                        i
+                                                                    )
+                                                                }
+                                                            />
+                                                        </th>
+                                                    );
+                                                })}
+                                                <th
+                                                    scope="col"
+                                                    onClick={addField}
+                                                >
+                                                    <span className="btn btn-dark">
+                                                        +
+                                                    </span>
                                                 </th>
-                                                <th scope="col">التخصص</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -111,68 +216,42 @@ const ExamResults = () => {
                                                         <th scope="row">
                                                             {index + 1}
                                                         </th>
-
                                                         <td>
                                                             <div className="data">
                                                                 <div className="name">
-                                                                    {student.fristName +
-                                                                        " " +
-                                                                        student.lastName}
+                                                                    {`${student.fristName} ${student.lastName}`}
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control w-50 mx-auto"
-                                                                name="one"
-                                                                onChange={(e) =>
-                                                                    handleChange(
-                                                                        e,
-                                                                        student._id
-                                                                    )
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control w-50 mx-auto"
-                                                                name="tow"
-                                                                onChange={(e) =>
-                                                                    handleChange(
-                                                                        e,
-                                                                        student._id
-                                                                    )
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control w-50 mx-auto"
-                                                                name="three"
-                                                                onChange={(e) =>
-                                                                    handleChange(
-                                                                        e,
-                                                                        student._id
-                                                                    )
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control w-50 mx-auto"
-                                                                name="four"
-                                                                onChange={(e) =>
-                                                                    handleChange(
-                                                                        e,
-                                                                        student._id
-                                                                    )
-                                                                }
-                                                            />
-                                                        </td>
+                                                        {feildCount.map(
+                                                            (ele, index) => {
+                                                                return (
+                                                                    <td
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                    >
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control w-50 mx-auto"
+                                                                            name={
+                                                                                subject[
+                                                                                    index
+                                                                                ]
+                                                                            }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                handleChange(
+                                                                                    e,
+                                                                                    student._id
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                );
+                                                            }
+                                                        )}
                                                     </tr>
                                                 );
                                             })}

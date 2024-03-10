@@ -1,6 +1,5 @@
 "use client";
 import { toast } from "react-toastify";
-import Quill from "../QuillCoponent";
 import axios from "axios";
 import { useEffect, useState } from "react";
 const VisionAndMission = () => {
@@ -34,7 +33,12 @@ const VisionAndMission = () => {
     }, []);
     return (
         <form onSubmit={handleSubmit}>
-            <Quill value={content} setValue={setContent} />
+            <textarea
+                rows="10"
+                className="form-control"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+            ></textarea>
             <div className="btns" style={{ paddingTop: "47px" }}>
                 <button
                     className="btn btn-dark"
