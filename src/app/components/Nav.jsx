@@ -55,9 +55,12 @@ const Nav = () => {
             <div className="footer-nav">
                 <div className="img-user">
                     <Image
-                        src={`${
-                            process.env.NEXT_PUBLIC_API
-                        }/public/images/users/${state && state.user.img}  `}
+                        src={
+                            state &&
+                            `${
+                                process.env.NEXT_PUBLIC_API
+                            }/public/images/users/${state && state.user.img}  `
+                        }
                         width={46}
                         height={46}
                         alt="img-user"
@@ -79,9 +82,7 @@ const Nav = () => {
                 </div>
                 <div className="log-out">
                     <Image
-                        src={
-                            state ? state.user.img : "/images/icons/log-out.png"
-                        }
+                        src="/images/icons/log-out.png"
                         width={25}
                         height={25}
                         alt="log-out"
@@ -93,4 +94,3 @@ const Nav = () => {
     );
 };
 export default Nav;
-
