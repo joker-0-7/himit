@@ -10,6 +10,7 @@ import Link from "next/link";
 import Actions from "../components/Actions";
 import ModalCopmonent from "../components/Modal";
 import Filter from "../components/Filter";
+import { toast } from "react-toastify";
 const Student = () => {
     const [open, setOpen] = useState(false);
     const [student, setStudent] = useState("");
