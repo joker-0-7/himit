@@ -19,6 +19,7 @@ const FacultyDepartments = () => {
             .get(`${process.env.NEXT_PUBLIC_API}/doctor`)
             .then((res) => {
                 setDoctors(res.data);
+                console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -69,7 +70,7 @@ const FacultyDepartments = () => {
                             >
                                 <div className="image ms-3">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_API}/public/images/doctors/${doctor.image}`}
+                                        src={doctor.image}
                                         width={90}
                                         height={90}
                                         alt="doc"
