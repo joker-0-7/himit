@@ -67,8 +67,7 @@ const SeatingNumbers = () => {
                 let currentFrom = +from;
                 let currentNum = +num;
                 for (let i = 0; i < count[category].length; i++) {
-                    count[category][i].seatingNumbers =
-                        String(currentFrom).split("");
+                    count[category][i].seatingNumbers = String(currentFrom);
                     count[category][i].committeeNumber = currentNum;
                     data.push(count[category][i]);
                     currentFrom++;
@@ -86,10 +85,10 @@ const SeatingNumbers = () => {
                 `${process.env.NEXT_PUBLIC_API}/users/add-seating-numbers`,
                 data
             );
-            toast.success(response.data.msg);
+            // toast.success(response.data.msg);
         } catch (error) {
             console.error(error);
-            toast.error(error.response.data.msg);
+            // toast.error(error.response.data.msg);
         }
     };
     return isClient ? (

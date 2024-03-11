@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import Header from "../components/Headr";
 import { days } from "../class-schedules/add/days";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function ExamsTable() {
     const [materials, setMaterials] = useState({});
@@ -11,7 +12,6 @@ function ExamsTable() {
     const [classRoom, setClassRoom] = useState();
     const [type, setType] = useState();
     const [subject, setSubject] = useState("");
-
     const handleDayChange = (selectedDay) => {
         const selectedDateTime = selectedDay.target.value;
         const selectedDate = new Date(selectedDateTime);
@@ -19,9 +19,14 @@ function ExamsTable() {
 
         setMaterials((prevMaterials) => ({
             ...prevMaterials,
-            [selectedDay.target.name]: formattedDateTime || [],
+            [selectedDay.target.name]: {
+                subject: subject, // تحديث اسم المادة
+                time: formattedDateTime, // تحديث الوقت
+            },
         }));
+        setSubject("");
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -34,8 +39,11 @@ function ExamsTable() {
             console.log(error);
             toast.error(error.response.data.msg);
         }
+        console.log(materials);
     };
-    const handleSubjectChange = () => {};
+    const handleSubjectChange = (e) => {
+        setSubject(e.target.value);
+    };
     return (
         <div>
             <div className="row">
@@ -179,7 +187,7 @@ function ExamsTable() {
                                             </div>
                                         </div>
                                     </div>
-                                    <table className="table w-50 table-borderless mt-5">
+                                    <table className="table w-75 table-borderless mt-5">
                                         <tbody>
                                             {days.map((day, index) => {
                                                 return (
@@ -187,7 +195,10 @@ function ExamsTable() {
                                                         key={index}
                                                         className="d-flex justify-content-between align-items-center"
                                                     >
-                                                        <th scope="row">
+                                                        <th
+                                                            scope="row"
+                                                            className="w-25"
+                                                        >
                                                             {day}
                                                         </th>
                                                         <td>
@@ -220,6 +231,11 @@ function ExamsTable() {
                                     <button
                                         className="btn submit btn-dark"
                                         type="submit"
+                                        disabled={
+                                            !academicDivision ||
+                                            !classRoom ||
+                                            !type
+                                        }
                                         onClick={handleSubmit}
                                     >
                                         حفظ
