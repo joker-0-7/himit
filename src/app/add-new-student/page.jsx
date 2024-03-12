@@ -47,7 +47,7 @@ const AddStudent = () => {
     await axios
       .post(`${process.env.NEXT_PUBLIC_API}/users/add-new-user`, formdata)
       .then((res) => console.log(res))
-       .then((res) => router.push("/student"))
+       .then((res) => router.push("/students"))
       .catch((err) => console.log(err));
     console.log(student);
   };
