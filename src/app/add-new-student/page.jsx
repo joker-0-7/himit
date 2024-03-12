@@ -1,5 +1,7 @@
+
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Nav from "../components/Nav";
 import { useState } from "react";
 import axios from "axios";
@@ -8,6 +10,7 @@ import "./add-new-student.css";
 
 const AddStudent = () => {
   const [image, setImage] = useState();
+     const router = useRouter();
   const [imgFile, setImgFile] = useState("");
   const [student, setStudent] = useState({
     fristName: "",
