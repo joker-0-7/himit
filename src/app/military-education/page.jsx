@@ -20,11 +20,12 @@ const MilitaryEducation = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let spltNum = num.split("");
         console.log(choseStu);
         try {
             const data = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/mility-edu`,
-                choseStu
+                { choseStu, squad, startDate, endDate, section, spltNum }
             );
             toast.success(data.data.msg);
         } catch (err) {
@@ -65,6 +66,7 @@ const MilitaryEducation = () => {
                     : data;
             setStudents(filtering);
             filteredStudents();
+            setSquad(squadValue);
         } catch (error) {
             console.log(error);
         }
@@ -192,6 +194,11 @@ const MilitaryEducation = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
+                                                        onChange={(e) => {
+                                                            setStartDate(
+                                                                e.target.value
+                                                            );
+                                                        }}
                                                         placeholder="تاريخ بدأ الدورة"
                                                     />
                                                 </div>
@@ -199,6 +206,11 @@ const MilitaryEducation = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
+                                                        onChange={(e) => {
+                                                            setEndDate(
+                                                                e.target.value
+                                                            );
+                                                        }}
                                                         placeholder="تاريخ انتهاء الدورة"
                                                     />
                                                 </div>
@@ -254,7 +266,7 @@ const MilitaryEducation = () => {
                                                                                 }
                                                                             >
                                                                                 <span
-                                                                                    className="btn btn-dark w-100 d-flex justify-content-evenly align-items-center mb-3"
+                                                                                    className="btn btn-dark w-100 d-flex justify-content-evenly align-items-center"
                                                                                     style={{
                                                                                         height: "60px",
                                                                                     }}
