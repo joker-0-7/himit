@@ -37,22 +37,25 @@ const AddCommittees = () => {
         }
         const data = [];
         users.forEach((user) => {
-            const setNum = String(user.seatingNumbers);
+            const setNum = user.seatingNumbers.join('');
             arr.forEach((num) => {
                 if (setNum.includes(String(num))) {
                     committe.from = undefined;
                     committe.to = undefined;
                     user.committe = committe;
                     data.push(user);
+                    console.log(user)
                 }
             });
         });
-        try {
-            const rus = axios.post(
-                `${process.env.NEXT_PUBLIC_API}/users/committe`,
-                data
-            );
-        } catch (error) {}
+        // try {
+        //     const rus = axios.post(
+        //         `${process.env.NEXT_PUBLIC_API}/users/committe`,
+        //         data
+        //     );
+        // } catch (error) {
+        //     console.log(error)
+        // }
     };
     const handleChange = (e) => {
         setCommitte({ ...committe, [e.target.name]: e.target.value });
