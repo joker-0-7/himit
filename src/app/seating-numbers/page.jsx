@@ -207,7 +207,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم المجموعة"
+                                        placeholder="رقم اللجنة"
                                         onChange={(e) => {
                                             setTwo({
                                                 ...two,
@@ -250,7 +250,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم المجموعة"
+                                        placeholder="رقم اللجنة"
                                         onChange={(e) => {
                                             setThree({
                                                 ...three,
@@ -293,7 +293,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم المجموعة"
+                                        placeholder="رقم اللجنة"
                                         onChange={(e) => {
                                             setFour({
                                                 ...four,
