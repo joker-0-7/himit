@@ -20,6 +20,7 @@ const MilitaryEducation = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(choseStu);
         try {
             const data = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/mility-edu`,
@@ -114,7 +115,10 @@ const MilitaryEducation = () => {
                                                         <select
                                                             className="form-control"
                                                             onChange={(e) =>
-                                                                set
+                                                                setSection(
+                                                                    e.target
+                                                                        .value
+                                                                )
                                                             }
                                                         >
                                                             <option
@@ -249,8 +253,8 @@ const MilitaryEducation = () => {
                                                                                     i
                                                                                 }
                                                                             >
-                                                                                <button
-                                                                                    className="btn btn-light w-100 d-flex justify-content-evenly align-items-center bg-light"
+                                                                                <span
+                                                                                    className="btn btn-dark w-100 d-flex justify-content-evenly align-items-center mb-3"
                                                                                     style={{
                                                                                         height: "60px",
                                                                                     }}
@@ -282,7 +286,7 @@ const MilitaryEducation = () => {
                                                                                     <span className="name">
                                                                                         {`${student.fristName} ${student.lastName}`}
                                                                                     </span>
-                                                                                </button>
+                                                                                </span>
                                                                             </div>
                                                                         );
                                                                     }
