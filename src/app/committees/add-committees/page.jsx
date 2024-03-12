@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const { default: Header } = require("../../components/Headr");
 const { default: Nav } = require("../../components/Nav");
@@ -53,6 +54,7 @@ const AddCommittees = () => {
                 `${process.env.NEXT_PUBLIC_API}/users/committe`,
                 data
             );
+            toast.success('تم اضافة البيانات بنجاح')
         } catch (error) {
             console.log(error)
         }
