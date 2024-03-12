@@ -67,8 +67,9 @@ const SeatingNumbers = () => {
                 let currentFrom = +from;
                 let currentNum = +num;
                 for (let i = 0; i < count[category].length; i++) {
-                    count[category][i].seatingNumbers = String(currentFrom);
-                    count[category][i].committeeNumber = currentNum;
+                    let num = String(currentFrom)
+                    count[category][i].seatingNumbers = num.split('');
+                    count[category][i].committeeNumber = String(currentNum).split('');
                     data.push(count[category][i]);
                     currentFrom++;
                     console.log(currentFrom);
@@ -80,16 +81,16 @@ const SeatingNumbers = () => {
         processCategory("نظم ومعلومات", three.from, three.num);
         processCategory("ادارة اعمال", four.from, four.num);
         console.log(data);
-        try {
-            const response = await axios.put(
-                `${process.env.NEXT_PUBLIC_API}/users/add-seating-numbers`,
-                data
-            );
-            // toast.success(response.data.msg);
-        } catch (error) {
-            console.error(error);
-            // toast.error(error.response.data.msg);
-        }
+        // try {
+        //     const response = await axios.put(
+        //         `${process.env.NEXT_PUBLIC_API}/users/add-seating-numbers`,
+        //         data
+        //     );
+        //     // toast.success(response.data.msg);
+        // } catch (error) {
+        //     console.error(error);
+        //     // toast.error(error.response.data.msg);
+        // }
     };
     return isClient ? (
         <div className="seating-numbers">
