@@ -164,7 +164,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم المجموعة"
+                                        placeholder="رقم اللجنة"
                                         onChange={(e) => {
                                             setOne({
                                                 ...one,
