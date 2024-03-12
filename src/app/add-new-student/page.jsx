@@ -6,6 +6,8 @@ import Nav from "../components/Nav";
 import { useState } from "react";
 import axios from "axios";
 import FormStudent from "../components/formStudent";
+import { toast } from "react-toastify";
+
 import "./add-new-student.css";
 
 const AddStudent = () => {
@@ -47,6 +49,7 @@ const AddStudent = () => {
     await axios
       .post(`${process.env.NEXT_PUBLIC_API}/users/add-new-user`, formdata)
       .then((res) => console.log(res))
+      .then((res)=>{toast.success('تم اضافة البيانات بنجاح')})
        .then((res) => router.push("/students"))
       .catch((err) => console.log(err));
     console.log(student);
