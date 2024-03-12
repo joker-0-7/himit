@@ -48,14 +48,14 @@ const AddCommittees = () => {
                 }
             });
         });
-        // try {
-        //     const rus = axios.post(
-        //         `${process.env.NEXT_PUBLIC_API}/users/committe`,
-        //         data
-        //     );
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        try {
+            const rus = axios.post(
+                `${process.env.NEXT_PUBLIC_API}/users/committe`,
+                data
+            );
+        } catch (error) {
+            console.log(error)
+        }
     };
     const handleChange = (e) => {
         setCommitte({ ...committe, [e.target.name]: e.target.value });
