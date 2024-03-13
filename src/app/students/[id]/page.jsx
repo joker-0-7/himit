@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import FormStudent from "../../components/formStudent";
 import Header from "@/app/components/Headr";
+import { useRouter } from "next/navigation";
 const EditStudint = () => {
     const [image, setImage] = useState();
+    const [disabled, setDisable] = useState(false);
     const [imgFile, setImgFile] = useState("");
-
+    const router = useRouter();
     const [student, setStudent] = useState({
         fristName: "",
         lastName: "",
@@ -41,6 +43,7 @@ const EditStudint = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisable(true);
         const formdata = new FormData();
         formdata.append("img", imgFile);
         formdata.append("fristName", student.fristName);
@@ -58,8 +61,11 @@ const EditStudint = () => {
                 }`,
                 formdata
             );
+            router.push("/students");
+            setDisable(false);
         } catch (err) {
             console.log(err);
+            setDisable(false);
         }
     };
     const upImage = (e) => {
@@ -83,6 +89,7 @@ const EditStudint = () => {
                     image={image}
                     upImage={upImage}
                     page="editStudint"
+                    disabled={disabled}
                 />
             </div>
         </div>
