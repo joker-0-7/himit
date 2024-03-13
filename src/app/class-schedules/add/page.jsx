@@ -5,9 +5,12 @@ import Nav from "../../components/Nav";
 import axios from "axios";
 import { toast } from "react-toastify";
 import FormClassSchedules from "@/app/components/FormClassSchedules";
+import { useRouter } from "next/navigation";
 
 const AddClassSchedules = () => {
     const [feildCount, setFeildCount] = useState([1, 2, 3]);
+    const [disabled, setDisable] = useState(false);
+    const router = useRouter();
     const [materials, setMaterials] = useState([
         { name: "السبت", data: [] },
         { name: "الأحد", data: [] },
@@ -28,15 +31,19 @@ const AddClassSchedules = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisable(true);
         try {
             const data = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/class-schedules`,
                 { type, academicDivision, classRoom, days: materials }
             );
             toast.success(data.data.msg);
+            router.push("/class-schedules");
+            setDisable(false);
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.msg);
+            setDisable(false);
         }
     };
     const addField = () => {
@@ -87,6 +94,7 @@ const AddClassSchedules = () => {
                                         feildCount,
                                         mainDay,
                                         inputs,
+                                        disabled,
                                     }}
                                 />
                             </div>
