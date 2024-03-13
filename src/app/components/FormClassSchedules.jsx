@@ -103,11 +103,16 @@ function FormClassSchedules({ props }) {
                     })}
                 </div>
                 <div className="btns mt-5">
-                    <button className="btn submit btn-dark" type="submit">
+                    <button
+                        className="btn submit btn-dark"
+                        type="submit"
+                        disabled={props.disabled}
+                    >
                         حفظ
                     </button>
                     <button
                         className="btn cancle btn-outline-dark me-4"
+                        type="button"
                         onClick={() => {
                             window.history.back();
                         }}
