@@ -6,6 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./add-doc.css";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 const AddDoc = () => {
     const [image, setImage] = useState();
     const [imgFile, setImgFile] = useState("");
@@ -13,12 +14,14 @@ const AddDoc = () => {
         fristName: "",
         lastName: "",
     });
-
+    const [disabled, setDisable] = useState(false);
+    const router = useRouter();
     const handleChange = (e) => {
         setDoctors({ ...doctors, [e.target.name]: e.target.value });
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisable(true);
         const formdata = new FormData();
         formdata.append("img", imgFile);
         formdata.append("fristName", doctors.fristName);
@@ -29,9 +32,11 @@ const AddDoc = () => {
                 formdata
             );
             toast.success(data.data.msg);
+            setDisable(false);
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.msg);
+            setDisable(false);
         }
     };
     const upImage = (e) => {
@@ -64,6 +69,7 @@ const AddDoc = () => {
                                         page="add-doc"
                                         handleSubmit={handleSubmit}
                                         handleChange={handleChange}
+                                        disabled={disabled}
                                     />
                                 </div>
                             </div>
