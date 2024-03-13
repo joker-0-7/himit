@@ -9,11 +9,12 @@ import { toast } from "react-toastify";
 import Actions from "../components/Actions";
 import DefaultPage from "../components/DefaultPage";
 import ModalCopmonent from "../components/Modal";
+import { useRouter } from "next/navigation";
 function ClassSchedules() {
     const [schedules, setSchedules] = useState([]);
     const [open, setOpen] = useState(false);
     const [delId, setDelId] = useState("");
-
+    const router = useRouter();
     const getData = async () => {
         try {
             const data = await axios.get(
@@ -49,6 +50,10 @@ function ClassSchedules() {
     const hideModal = () => {
         setOpen(false);
     };
+    const editSchedule = (e) => {
+        console.log(e);
+        router.push(`/class-schedules/edit/${e}`);
+    };
     return (
         <div>
             <Nav />
@@ -59,6 +64,21 @@ function ClassSchedules() {
                     </div>
                     <div className="col-12">
                         <div className="row">
+                            <div className="col-12">
+                                <div className="row">
+                                    <div className="col-6">
+                                        <h1>الجداول الدراسية</h1>
+                                    </div>
+                                    <div className="col-6 text-start">
+                                        <Link
+                                            href="/class-schedules/add"
+                                            className="btn btn-dark me-auto"
+                                        >
+                                            اضافة جدول
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                             {schedules.length > 0 ? (
                                 schedules.map((ele) => {
                                     return (
@@ -86,6 +106,9 @@ function ClassSchedules() {
                                                         showModal={showModal}
                                                         id={ele._id}
                                                         user={ele._id}
+                                                        editStudent={
+                                                            editSchedule
+                                                        }
                                                     />
                                                 </div>
                                             </div>
