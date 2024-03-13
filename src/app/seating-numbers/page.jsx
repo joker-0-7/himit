@@ -10,6 +10,7 @@ const SeatingNumbers = () => {
     const [count, setCount] = useState({});
     const [student, setStudent] = useState([]);
     const [isClient, setIsClient] = useState(false);
+    const [disable, setDisable] = useState(false);
     const [squad, setSquad] = useState("DEFAULT");
     const [one, setOne] = useState({ from: "", to: "", num: "" });
     const [two, setTwo] = useState({ from: "", to: "", num: "" });
@@ -61,6 +62,7 @@ const SeatingNumbers = () => {
     }, [student]);
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisable(true);
         const data = [];
         const processCategory = (category, from, num) => {
             if (count[category] && count[category].length > 0) {
@@ -81,22 +83,22 @@ const SeatingNumbers = () => {
         processCategory("محاسبة", two.from, two.num);
         processCategory("نظم ومعلومات", three.from, three.num);
         processCategory("ادارة اعمال", four.from, four.num);
-        console.log(data);
         try {
             const response = await axios.put(
                 `${process.env.NEXT_PUBLIC_API}/users/add-seating-numbers`,
                 data
             );
-            // toast.success(response.data.msg);
+            setDisable(false);
+            toast.success("تم ارسال البيانات بنجاح");
         } catch (error) {
             console.error(error);
-            // toast.error(error.response.data.msg);
+            setDisable(false);
+            toast.error("حذث خطأ. رجاء المحاولة مرة اخري");
         }
     };
     return isClient ? (
         <div className="seating-numbers">
             <Nav />
-
             <div className="container">
                 <Header />
                 <form onSubmit={handleSubmit}>
@@ -164,7 +166,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم اللجنة"
+                                        placeholder="رقم المجموعة"
                                         onChange={(e) => {
                                             setOne({
                                                 ...one,
@@ -207,7 +209,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم اللجنة"
+                                        placeholder="رقم المجموعة"
                                         onChange={(e) => {
                                             setTwo({
                                                 ...two,
@@ -250,7 +252,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم اللجنة"
+                                        placeholder="رقم المجموعة"
                                         onChange={(e) => {
                                             setThree({
                                                 ...three,
@@ -293,7 +295,7 @@ const SeatingNumbers = () => {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="رقم اللجنة"
+                                        placeholder="رقم المجموعة"
                                         onChange={(e) => {
                                             setFour({
                                                 ...four,
@@ -305,10 +307,16 @@ const SeatingNumbers = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <button className="btn btn-dark send ms-4" type="submit">
+                    <button
+                        className="btn btn-dark send ms-4"
+                        type="submit"
+                        disabled={disable}
+                    >
                         ارسال
                     </button>
-                    <button className="btn cancle">الغاء</button>
+                    <button className="btn cancle" type="button">
+                        الغاء
+                    </button>
                     <DataCount count={count} />
                 </form>
             </div>
