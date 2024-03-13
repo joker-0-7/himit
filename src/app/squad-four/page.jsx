@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -10,6 +11,8 @@ const { default: Nav } = require("../components/Nav");
 const SquadFour = () => {
     const [users, setUsers] = useState([]);
     const [data, setData] = useState({});
+    const [disabled, setDisable] = useState(false);
+    const router = useRouter();
     useEffect(() => {
         getData();
     }, []);
@@ -41,14 +44,18 @@ const SquadFour = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisable(true);
         try {
             const { res } = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/add-cumulative`,
                 data
             );
+            router.push("/students");
+            setDisable(false);
         } catch (err) {
             console.log(err);
             toast.error(err.response.data.msg);
+            setDisable(false);
         }
     };
     return (
@@ -64,18 +71,24 @@ const SquadFour = () => {
                         </div>
                         <div className="col-12">
                             <div className="row">
-                                <Filter />
+                                <div className="col-10">
+                                    <div className="row">
+                                        <Filter />
+                                    </div>
+                                </div>
+                                <div className="col-2">
+                                    <span
+                                        className="btn btn-dark"
+                                        onClick={handleSubmit}
+                                        disabled={disabled}
+                                    >
+                                        send
+                                    </span>
+                                </div>
                             </div>
                             <div className="users mt-5">
                                 <table className="table table-borderless">
                                     <thead>
-                                        <span
-                                            className="btn btn-dark"
-                                            onClick={handleSubmit}
-                                        >
-                                            {" "}
-                                            send{" "}
-                                        </span>
                                         <tr>
                                             <th scope="col">رقم الجلوس</th>
                                             <th scope="col">اسم الطالب</th>
