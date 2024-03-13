@@ -5,12 +5,15 @@ import Header from "@/app/components/Headr";
 import FormStudent from "@/app/components/formStudent";
 import "../../add-doc/add-doc.css";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 const EditDoctor = () => {
     const [doctor, setDoctor] = useState({
         fristName: "",
         lastName: "",
     });
+    const [disabled, setDisable] = useState(false);
     const [image, setImage] = useState();
+    const router = useRouter();
     const [imgFile, setImgFile] = useState("");
     const getDoctor = async () => {
         await axios
@@ -29,6 +32,7 @@ const EditDoctor = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDisable(true);
         const formdata = new FormData();
         formdata.append("img", imgFile);
         formdata.append("fristName", doctor.fristName);
@@ -41,7 +45,14 @@ const EditDoctor = () => {
                 formdata
             )
             .then((res) => setDoctor(res.data))
-            .catch((err) => console.log(err));
+            .then((res) => {
+                setDisable(false);
+                router.push("/settings-page");
+            })
+            .catch((err) => {
+                console.log(err);
+                setDisable(false);
+            });
     };
     useEffect(() => {
         getDoctor();
@@ -64,6 +75,7 @@ const EditDoctor = () => {
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                     doctor={doctor}
+                    disabled={disabled}
                     upImage={upImage}
                     page="add-doc"
                 />
