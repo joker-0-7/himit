@@ -296,7 +296,7 @@ const ExamResults = () => {
                             </div>
                         </div>
                         <button
-                            className="btn btn-btn-dark"
+                            className="btn btn-dark"
                             onClick={handleSubmit}
                         >
                             ارسال
