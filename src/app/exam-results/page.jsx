@@ -75,6 +75,7 @@ const ExamResults = () => {
                         markers: updatedMarkers,
                     };
                 }
+                console.log(user);
                 return user;
             });
         });
@@ -97,6 +98,17 @@ const ExamResults = () => {
             setFeildCount((prevFeildCount) => [
                 ...feildCount.slice(0, feildCount.length - 1),
             ]);
+        }
+    };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const rus = axios.post(
+                `${process.env.NEXT_PUBLIC_API}/users/committe`,
+                data
+            );
+        } catch (error) {
+            console.log(error);
         }
     };
     return (
@@ -283,6 +295,12 @@ const ExamResults = () => {
                                 </div>
                             </div>
                         </div>
+                        <button
+                            className="btn btn-btn-dark"
+                            onClick={handleSubmit}
+                        >
+                            ارسال
+                        </button>
                     </div>
                 </div>
             </div>
