@@ -105,7 +105,7 @@ const ExamResults = () => {
         try {
             const rus = axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/committe`,
-                data
+                users
             );
         } catch (error) {
             console.log(error);
