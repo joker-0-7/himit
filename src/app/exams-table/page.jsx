@@ -1,261 +1,346 @@
 "use client";
-import React, { useState } from "react";
-import Nav from "../components/Nav";
+import { useEffect, useState } from "react";
 import Header from "../components/Headr";
-import { days } from "../class-schedules/add/days";
+import Nav from "../components/Nav";
 import axios from "axios";
-import { toast } from "react-toastify";
-
-function ExamsTable() {
-    const [materials, setMaterials] = useState({});
-    const [academicDivision, setAcademicDivision] = useState();
-    const [classRoom, setClassRoom] = useState();
+import Filter from "../components/Filter";
+const ExamResults = () => {
+    const [users, setUsers] = useState([]);
+    const [section, setSection] = useState("");
+    const [squad, setSquad] = useState("");
+    const [subject, setSubject] = useState([]);
+    const [feildCount, setFeildCount] = useState([1]);
     const [type, setType] = useState();
-    const [subject, setSubject] = useState("");
-    const handleDayChange = (selectedDay) => {
-        const selectedDateTime = selectedDay.target.value;
-        const selectedDate = new Date(selectedDateTime);
-        const formattedDateTime = selectedDate.toISOString();
-
-        setMaterials((prevMaterials) => ({
-            ...prevMaterials,
-            [selectedDay.target.name]: {
-                subject: subject, // تحديث اسم المادة
-                time: formattedDateTime, // تحديث الوقت
-            },
-        }));
-        setSubject("");
+    const getData = async () => {
+        try {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_API}/users/students`
+            );
+            setUsers(data);
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    useEffect(() => {
+        getData();
+    }, []);
+    // -------------------------------------------------------------------------------------------- //
+    /* IF YOU NEED TO SEND MARKRES TO DATABASE WITH OUT USERS THEN YOU CALL IN IN SERVER SIDE WHITH REF TO USER
+    // -------------------------------------------------------------------------------------------- //
+    const handleChange = (e, userId) => {
+        const { name, value } = e.target;
+        const userIndex = markers.findIndex(
+            (marker) => marker.userId === userId
+        );
+        if (userIndex === -1) {
+            setMarkers((prevMarkers) => [
+                ...prevMarkers,
+                { userId, [name]: value },
+            ]);
+        } else {
+            setMarkers((prevMarkers) => {
+                const updatedMarkers = [...prevMarkers];
+                updatedMarkers[userIndex] = {
+                    userId,
+                    ...updatedMarkers[userIndex],
+                    [name]: value,
+                };
+                return updatedMarkers;
+            });
+        }};
+    */
+    // -------------------------------------------------------------------------------------------- //
+    // IF YOU NEET TO SENT MARKERS WITH USERS AND SAVE IT IN USERS DATABASE WITH PROPERTY
+    // -------------------------------------------------------------------------------------------- //
+    const handleChange = (e, userId) => {
+        const { name, value } = e.target;
+        if (type == "تخلفات") {
+            setUsers((prevUsers) => {
+                return prevUsers.map((user) => {
+                    if (user._id === userId) {
+                        const updatedMarkers = user.backwards.map(
+                            (backwards) => {
+                                if (backwards.name === name) {
+                                    return {
+                                        ...backwards,
+                                        value,
+                                    };
+                                }
+                                return backwards;
+                            }
+                        );
+                        if (
+                            !user.backwards.some(
+                                (backwards) => backwards.name === name
+                            )
+                        ) {
+                            updatedMarkers.push({ name, value });
+                        }
+                        return {
+                            ...user,
+                            backwards: updatedMarkers,
+                        };
+                    }
+                    console.log(user);
+                    return user;
+                });
+            });
+        } else {
+            setUsers((prevUsers) => {
+                return prevUsers.map((user) => {
+                    if (user._id === userId) {
+                        const updatedMarkers = user.markers.map((marker) => {
+                            if (marker.name === name) {
+                                return {
+                                    ...marker,
+                                    value,
+                                };
+                            }
+                            return marker;
+                        });
+                        if (
+                            !user.markers.some((marker) => marker.name === name)
+                        ) {
+                            updatedMarkers.push({ name, value });
+                        }
+                        return {
+                            ...user,
+                            markers: updatedMarkers,
+                        };
+                    }
+                    console.log(user);
+                    return user;
+                });
+            });
+        }
     };
 
+    // --------------------------------------------------------------------------------------------//
+    const addField = () => {
+        setFeildCount((prevFeildCount) => [
+            ...prevFeildCount,
+            prevFeildCount.length + 1,
+        ]);
+    };
+    const addSubject = (e, index) => {
+        const updatedSubject = [...subject];
+        updatedSubject[index] = e.target.value;
+        setSubject(updatedSubject);
+        console.log(updatedSubject);
+    };
+    const delField = () => {
+        if (feildCount.length > 1) {
+            setFeildCount((prevFeildCount) => [
+                ...feildCount.slice(0, feildCount.length - 1),
+            ]);
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const data = await axios.post(
-                `${process.env.NEXT_PUBLIC_API}/users/exams-table`,
-                { type, academicDivision, classRoom, days: materials }
+            const rus = axios.post(
+                `${process.env.NEXT_PUBLIC_API}/users/committe`,
+                data
             );
-            toast.success(data.data.msg);
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.msg);
         }
-        console.log(materials);
-    };
-    const handleSubjectChange = (e) => {
-        setSubject(e.target.value);
     };
     return (
-        <div>
+        <div className="exam-results">
             <div className="row">
                 <div className="col-2">
                     <Nav />
                 </div>
                 <div className="col-10">
-                    <div className="container">
+                    <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
                                 <Header />
                             </div>
                             <div className="col-12">
-                                <div className="main-heading">
-                                    <h1>جدول الامتحانات</h1>
-                                    <div className="fillter mt-3">
-                                        <div className="row">
-                                            <div className="section col-4">
-                                                <select
-                                                    className="form-control"
-                                                    onChange={(e) =>
-                                                        setAcademicDivision(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                >
-                                                    <option
-                                                        value="يرجي اختيار الشعبة"
-                                                        selected
-                                                        disabled
+                                <div className="users mt-5">
+                                    <div className="row">
+                                        <Filter
+                                            setSection={(e) =>
+                                                setSection(e.target.value)
+                                            }
+                                            setSquad={(e) =>
+                                                setSquad(e.target.value)
+                                            }
+                                        />
+                                        <div className="inputs col-4">
+                                            <div className="row">
+                                                <div className="col-4 form-check d-flex justify-content-around">
+                                                    <input
+                                                        type="radio"
+                                                        name="type-exam"
+                                                        className="form-check-input float-none"
+                                                        id="one"
+                                                        value="ميد ترم"
+                                                        onChange={(e) => {
+                                                            setType(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="one"
                                                     >
-                                                        يرجي اختيار الشعبة
-                                                    </option>
-                                                    <option value="علوم حاسب">
-                                                        علوم حاسب
-                                                    </option>
-                                                    <option value="نظم ومعلومات">
-                                                        نظم ومعلومات
-                                                    </option>
-                                                    <option value="محاسبة">
-                                                        محاسبة
-                                                    </option>
-                                                    <option value="ادارة اعمال">
-                                                        ادارة اعمال
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div className="Squad col-4">
-                                                <select
-                                                    className="form-control"
-                                                    onChange={(e) =>
-                                                        setClassRoom(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                >
-                                                    <option
-                                                        value="يرجي اختيار الفرقة"
-                                                        selected
-                                                        disabled
+                                                        ميد ترم
+                                                    </label>
+                                                </div>
+                                                <div className="col-4 form-check d-flex justify-content-around">
+                                                    <input
+                                                        type="radio"
+                                                        name="type-exam"
+                                                        className="form-check-input float-none"
+                                                        id="two"
+                                                        value="فاينال"
+                                                        onChange={(e) => {
+                                                            setType(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="two"
                                                     >
-                                                        يرجي اختيار الفرقة
-                                                    </option>
-                                                    <option value="الفرقة الأولي">
-                                                        الفرقة الأولي
-                                                    </option>
-                                                    <option value="الفرقة الثانية">
-                                                        الفرقة الثانية
-                                                    </option>
-                                                    <option value="الفرقة الثالثة">
-                                                        الفرقة الثالثة
-                                                    </option>
-                                                    <option value="الفرقة الرابعة">
-                                                        الفرقة الرابعة
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div className="inputs col-4">
-                                                <div className="row">
-                                                    <div className="col-4 form-check d-flex justify-content-around">
-                                                        <input
-                                                            type="radio"
-                                                            name="type-exam"
-                                                            className="form-check-input float-none"
-                                                            id="one"
-                                                            onChange={(e) => {
-                                                                setType(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
-                                                        />
-                                                        <label
-                                                            className="form-check-label"
-                                                            htmlFor="one"
-                                                        >
-                                                            ميد ترم
-                                                        </label>
-                                                    </div>
-                                                    <div className="col-4 form-check d-flex justify-content-around">
-                                                        <input
-                                                            type="radio"
-                                                            name="type-exam"
-                                                            className="form-check-input float-none"
-                                                            id="two"
-                                                            onChange={(e) => {
-                                                                setType(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
-                                                        />
-                                                        <label
-                                                            className="form-check-label"
-                                                            htmlFor="two"
-                                                        >
-                                                            فاينال
-                                                        </label>
-                                                    </div>
-                                                    <div className="col-4 form-check d-flex justify-content-around">
-                                                        <input
-                                                            type="radio"
-                                                            name="type-exam"
-                                                            className="form-check-input float-none"
-                                                            id="three"
-                                                            onChange={(e) => {
-                                                                setType(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
-                                                        />
-                                                        <label
-                                                            className="form-check-label"
-                                                            htmlFor="three"
-                                                        >
-                                                            تخلفات
-                                                        </label>
-                                                    </div>
+                                                        فاينال
+                                                    </label>
+                                                </div>
+                                                <div className="col-4 form-check d-flex justify-content-around">
+                                                    <input
+                                                        type="radio"
+                                                        name="type-exam"
+                                                        className="form-check-input float-none"
+                                                        id="three"
+                                                        value="تخلفات"
+                                                        onChange={(e) => {
+                                                            setType(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="three"
+                                                    >
+                                                        تخلفات
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <table className="table w-75 table-borderless mt-5">
-                                        <tbody>
-                                            {days.map((day, index) => {
-                                                return (
-                                                    <tr
-                                                        key={index}
-                                                        className="d-flex justify-content-between align-items-center"
-                                                    >
-                                                        <th
-                                                            scope="row"
-                                                            className="w-25"
-                                                        >
-                                                            {day}
-                                                        </th>
-                                                        <td>
+                                    <table className="table table-borderless">
+                                        <thead className="text-center">
+                                            <tr>
+                                                <th scope="col">الرقم</th>
+                                                <th scope="col">اسم الطالب</th>
+                                                {feildCount.map((ele, i) => {
+                                                    return (
+                                                        <th scope="col" key={i}>
                                                             <input
+                                                                className="form-control w-50 mx-auto"
                                                                 type="text"
-                                                                className="form-control w-100"
-                                                                name={day}
-                                                                onChange={
-                                                                    handleSubjectChange
+                                                                placeholder="اسم الماده"
+                                                                onChange={(e) =>
+                                                                    addSubject(
+                                                                        e,
+                                                                        i
+                                                                    )
                                                                 }
                                                             />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="datetime-local"
-                                                                className="form-control w-100"
-                                                                name={day}
-                                                                onChange={
-                                                                    handleDayChange
+                                                        </th>
+                                                    );
+                                                })}
+                                                <th
+                                                    scope="col"
+                                                    onClick={addField}
+                                                >
+                                                    <span className="btn btn-dark">
+                                                        +
+                                                    </span>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    onClick={delField}
+                                                >
+                                                    <span className="btn btn-danger">
+                                                        x
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {users.map((student, index) => {
+                                                return (
+                                                    <>
+                                                        <tr key={student._id}>
+                                                            <th scope="row">
+                                                                {index + 1}
+                                                            </th>
+                                                            <td>
+                                                                <div className="data">
+                                                                    <div className="name">
+                                                                        {`${student.fristName} ${student.lastName}`}
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            {feildCount.map(
+                                                                (
+                                                                    ele,
+                                                                    index
+                                                                ) => {
+                                                                    return (
+                                                                        <>
+                                                                            <td
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                            >
+                                                                                <input
+                                                                                    type="text"
+                                                                                    placeholder="النتيجة"
+                                                                                    className="form-control w-50 mx-auto"
+                                                                                    name={
+                                                                                        subject[
+                                                                                            index
+                                                                                        ]
+                                                                                    }
+                                                                                    onChange={(
+                                                                                        e
+                                                                                    ) =>
+                                                                                        handleChange(
+                                                                                            e,
+                                                                                            student._id
+                                                                                        )
+                                                                                    }
+                                                                                />
+                                                                            </td>
+                                                                        </>
+                                                                    );
                                                                 }
-                                                            />
-                                                        </td>
-                                                    </tr>
+                                                            )}
+                                                        </tr>
+                                                    </>
                                                 );
                                             })}
                                         </tbody>
                                     </table>
                                 </div>
-                                <div className="btns">
-                                    <button
-                                        className="btn submit btn-dark"
-                                        type="submit"
-                                        disabled={
-                                            !academicDivision ||
-                                            !classRoom ||
-                                            !type
-                                        }
-                                        onClick={handleSubmit}
-                                    >
-                                        حفظ
-                                    </button>
-                                    <button
-                                        className="btn cancle btn-outline-dark me-4"
-                                        onClick={() => {
-                                            window.history.back();
-                                        }}
-                                    >
-                                        الغاء
-                                    </button>
-                                </div>
                             </div>
                         </div>
+                        <button className="btn btn-dark" onClick={handleSubmit}>
+                            ارسال
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     );
-}
-
-export default ExamsTable;
+};
+export default ExamResults;
