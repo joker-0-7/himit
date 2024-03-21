@@ -55,31 +55,67 @@ const ExamResults = () => {
     // -------------------------------------------------------------------------------------------- //
     const handleChange = (e, userId) => {
         const { name, value } = e.target;
-        setUsers((prevUsers) => {
-            return prevUsers.map((user) => {
-                if (user._id === userId) {
-                    const updatedMarkers = user.markers.map((marker) => {
-                        if (marker.name === name) {
-                            return {
-                                ...marker,
-                                value,
-                            };
+        if (type == "تخلفات") {
+            setUsers((prevUsers) => {
+                return prevUsers.map((user) => {
+                    if (user._id === userId) {
+                        const updatedMarkers = user.backwards.map(
+                            (backwards) => {
+                                if (backwards.name === name) {
+                                    return {
+                                        ...backwards,
+                                        value,
+                                    };
+                                }
+                                return backwards;
+                            }
+                        );
+                        if (
+                            !user.backwards.some(
+                                (backwards) => backwards.name === name
+                            )
+                        ) {
+                            updatedMarkers.push({ name, value });
                         }
-                        return marker;
-                    });
-                    if (!user.markers.some((marker) => marker.name === name)) {
-                        updatedMarkers.push({ name, value });
+                        return {
+                            ...user,
+                            backwards: updatedMarkers,
+                        };
                     }
-                    return {
-                        ...user,
-                        markers: updatedMarkers,
-                    };
-                }
-                console.log(user);
-                return user;
+                    console.log(user);
+                    return user;
+                });
             });
-        });
+        } else {
+            setUsers((prevUsers) => {
+                return prevUsers.map((user) => {
+                    if (user._id === userId) {
+                        const updatedMarkers = user.markers.map((marker) => {
+                            if (marker.name === name) {
+                                return {
+                                    ...marker,
+                                    value,
+                                };
+                            }
+                            return marker;
+                        });
+                        if (
+                            !user.markers.some((marker) => marker.name === name)
+                        ) {
+                            updatedMarkers.push({ name, value });
+                        }
+                        return {
+                            ...user,
+                            markers: updatedMarkers,
+                        };
+                    }
+                    console.log(user);
+                    return user;
+                });
+            });
+        }
     };
+
     // --------------------------------------------------------------------------------------------//
     const addField = () => {
         setFeildCount((prevFeildCount) => [
@@ -105,7 +141,7 @@ const ExamResults = () => {
         try {
             const rus = axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/committe`,
-                users
+                data
             );
         } catch (error) {
             console.log(error);
@@ -142,6 +178,7 @@ const ExamResults = () => {
                                                         name="type-exam"
                                                         className="form-check-input float-none"
                                                         id="one"
+                                                        value="ميد ترم"
                                                         onChange={(e) => {
                                                             setType(
                                                                 e.target.value
@@ -161,6 +198,7 @@ const ExamResults = () => {
                                                         name="type-exam"
                                                         className="form-check-input float-none"
                                                         id="two"
+                                                        value="فاينال"
                                                         onChange={(e) => {
                                                             setType(
                                                                 e.target.value
@@ -180,6 +218,7 @@ const ExamResults = () => {
                                                         name="type-exam"
                                                         className="form-check-input float-none"
                                                         id="three"
+                                                        value="تخلفات"
                                                         onChange={(e) => {
                                                             setType(
                                                                 e.target.value
@@ -295,10 +334,7 @@ const ExamResults = () => {
                                 </div>
                             </div>
                         </div>
-                        <button
-                            className="btn btn-dark"
-                            onClick={handleSubmit}
-                        >
+                        <button className="btn btn-dark" onClick={handleSubmit}>
                             ارسال
                         </button>
                     </div>
