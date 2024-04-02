@@ -55,6 +55,21 @@ const Student = () => {
     const editStudent = (e) => {
         router.push(`/students/${e}`);
     };
+    const handleSquad = async (e) => {
+        const squadValue = e.target.value;
+        try {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_API}/users/students`
+            );
+            const filtering =
+                squadValue !== "DEFAULT"
+                    ? data.filter((s) => s.squad === squadValue)
+                    : data;
+            setStudent(filtering);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <div className="student">
             <Nav />
@@ -110,10 +125,7 @@ const Student = () => {
                         </select>
                     </div>
                     <div className="Squad">
-                        <select
-                            className="form-control"
-                            onChange={(e) => setSquad(e.target.value)}
-                        >
+                        <select className="form-control" onChange={handleSquad}>
                             <option
                                 value="يرجي اختيار الفرقة"
                                 selected

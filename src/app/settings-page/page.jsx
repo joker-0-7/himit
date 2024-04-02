@@ -49,63 +49,6 @@ const Settings = () => {
                                 </li>
                                 <li className="nav-item" role="presentation">
                                     <button
-                                        className="nav-link"
-                                        id="faculty-departments-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#faculty-departments"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="faculty-departments"
-                                        aria-selected="false"
-                                    >
-                                        اعضاء هيئة التدريس
-                                    </button>
-                                </li>
-                                <li className="nav-item" role="presentation">
-                                    <button
-                                        className="nav-link"
-                                        id="institute-vision-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#institute-vision"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="institute-vision"
-                                        aria-selected="false"
-                                    >
-                                        رؤية المعهد
-                                    </button>
-                                </li>
-
-                                <li className="nav-item" role="presentation">
-                                    <button
-                                        className="nav-link"
-                                        id="goal-application-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#goal-application"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="goal-application"
-                                        aria-selected="false"
-                                    >
-                                        الهدف من التطبيق
-                                    </button>
-                                </li>
-                                <li className="nav-item" role="presentation">
-                                    <button
-                                        className="nav-link"
-                                        id="usage-policy-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#usage-policy"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="usage-policy"
-                                        aria-selected="false"
-                                    >
-                                        سياسة الاستخدام
-                                    </button>
-                                </li>
-                                <li className="nav-item" role="presentation">
-                                    <button
                                         className="nav-link btn"
                                         onClick={showModal}
                                     >

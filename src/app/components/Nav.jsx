@@ -4,10 +4,11 @@ import Link from "next/link";
 import Lists from "../helpers/navLinks";
 import { UserContext } from "../context/userContext";
 import { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 const Nav = () => {
     const [state, setState] = useContext(UserContext);
     const router = useRouter();
+    const pathname = usePathname();
     const logOut = () => {
         window.localStorage.removeItem("auth");
         router.push("/login");
@@ -45,7 +46,16 @@ const Nav = () => {
                                     />
                                 </span>
                                 <span className="link">
-                                    <Link href={list.link}>{list.name}</Link>
+                                    <Link
+                                        href={list.link}
+                                        className={`${
+                                            pathname === list.link
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                    >
+                                        {list.name}
+                                    </Link>
                                 </span>
                             </li>
                         );

@@ -21,11 +21,10 @@ const MilitaryEducation = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let spltNum = num.split("");
-        console.log(choseStu);
         try {
             const data = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/mility-edu`,
-                { choseStu, squad, startDate, endDate, section, spltNum }
+                { choseStu, startDate, endDate, spltNum }
             );
             toast.success(data.data.msg);
         } catch (err) {
@@ -106,77 +105,12 @@ const MilitaryEducation = () => {
                             <div className="container">
                                 <Header />
                                 <div className="main-page">
-                                    <div className="main-heading">
+                                    <div className="main-heading mb-5">
                                         <h1>التربية العسكرية</h1>
                                     </div>
                                     <div className="form">
                                         <form onSubmit={handleSubmit}>
                                             <div className="row gy-5">
-                                                <div className="col-lg-6 col-sm-12">
-                                                    <div className="section">
-                                                        <select
-                                                            className="form-control"
-                                                            onChange={(e) =>
-                                                                setSection(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                        >
-                                                            <option
-                                                                value="يرجي اختيار الشعبة"
-                                                                selected
-                                                                disabled
-                                                            >
-                                                                يرجي اختيار
-                                                                الشعبة
-                                                            </option>
-                                                            <option value="علوم حاسب">
-                                                                علوم حاسب
-                                                            </option>
-                                                            <option value="نظم ومعلومات">
-                                                                نظم ومعلومات
-                                                            </option>
-                                                            <option value="محاسبة">
-                                                                محاسبة
-                                                            </option>
-                                                            <option value="ادارة اعمال">
-                                                                ادارة اعمال
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-6 col-sm-12">
-                                                    <div className="Squad">
-                                                        <select
-                                                            className="form-control"
-                                                            onChange={
-                                                                handleSquad
-                                                            }
-                                                        >
-                                                            <option
-                                                                value="يرجي اختيار الفرقة"
-                                                                selected
-                                                                disabled
-                                                            >
-                                                                يرجي اختيار
-                                                                الفرقة
-                                                            </option>
-                                                            <option value="الفرقة الأولي">
-                                                                الفرقة الأولي
-                                                            </option>
-                                                            <option value="الفرقة الثانية">
-                                                                الفرقة الثانية
-                                                            </option>
-                                                            <option value="الفرقة الثالثة">
-                                                                الفرقة الثالثة
-                                                            </option>
-                                                            <option value="الفرقة الرابعة">
-                                                                الفرقة الرابعة
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
                                                 <div className="col-lg-6 col-sm-12">
                                                     <input
                                                         type="text"
@@ -192,7 +126,7 @@ const MilitaryEducation = () => {
                                                 </div>
                                                 <div className="col-lg-6 col-sm-12">
                                                     <input
-                                                        type="text"
+                                                        type="date"
                                                         className="form-control"
                                                         onChange={(e) => {
                                                             setStartDate(
@@ -204,7 +138,7 @@ const MilitaryEducation = () => {
                                                 </div>
                                                 <div className="col-lg-6 col-sm-12">
                                                     <input
-                                                        type="text"
+                                                        type="date"
                                                         className="form-control"
                                                         onChange={(e) => {
                                                             setEndDate(
@@ -241,10 +175,26 @@ const MilitaryEducation = () => {
                                                                     <span>
                                                                         {`${student.fristName} ${student.lastName}`}
                                                                     </span>
-                                                                    <span>
-                                                                        {index +
-                                                                            1}
-                                                                    </span>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control w-25 mb-0"
+                                                                        placeholder="المسلسل"
+                                                                        onChange={(
+                                                                            e
+                                                                        ) => {
+                                                                            const newChoseStu =
+                                                                                [
+                                                                                    ...choseStu,
+                                                                                ];
+                                                                            newChoseStu[
+                                                                                index
+                                                                            ].serialNumber =
+                                                                                e.target.value;
+                                                                            setChoseStu(
+                                                                                newChoseStu
+                                                                            );
+                                                                        }}
+                                                                    />
                                                                 </div>
                                                             );
                                                         }
@@ -298,6 +248,7 @@ const MilitaryEducation = () => {
                                                                                     <span className="name">
                                                                                         {`${student.fristName} ${student.lastName}`}
                                                                                     </span>
+                                                                                    <span></span>
                                                                                 </span>
                                                                             </div>
                                                                         );

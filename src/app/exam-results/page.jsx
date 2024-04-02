@@ -25,6 +25,21 @@ const ExamResults = () => {
     useEffect(() => {
         getData();
     }, []);
+    const handleAdditionalChange = (e, index, field) => {
+        const { value } = e.target;
+        setUsers((prevUsers) =>
+            prevUsers.map((user, idx) => {
+                if (idx === index) {
+                    return {
+                        ...user,
+                        [field]: value,
+                    };
+                }
+                return user;
+            })
+        );
+    };
+
     // -------------------------------------------------------------------------------------------- //
     /* IF YOU NEED TO SEND MARKRES TO DATABASE WITH OUT USERS THEN YOU CALL IN IN SERVER SIDE WHITH REF TO USER
     // -------------------------------------------------------------------------------------------- //
@@ -269,11 +284,14 @@ const ExamResults = () => {
                                                 <th scope="col">اسم الطالب</th>
                                                 {feildCount.map((ele, i) => {
                                                     return (
-                                                        <th scope="col" key={i}>
+                                                        <th
+                                                            scope="col"
+                                                            key={`subject-${i}`}
+                                                        >
                                                             <input
                                                                 className="form-control w-50 mx-auto"
                                                                 type="text"
-                                                                placeholder="اسم الماده"
+                                                                placeholder="اسم المادة"
                                                                 onChange={(e) =>
                                                                     addSubject(
                                                                         e,
@@ -284,6 +302,9 @@ const ExamResults = () => {
                                                         </th>
                                                     );
                                                 })}
+                                                <th scope="col">تقدير</th>
+                                                <th scope="col">نسبة</th>
+                                                <th scope="col">مجموع</th>
                                                 <th
                                                     scope="col"
                                                     onClick={addField}
@@ -352,6 +373,54 @@ const ExamResults = () => {
                                                                     );
                                                                 }
                                                             )}
+                                                            <th scope="col">
+                                                                <input
+                                                                    className="form-control w-50 mx-auto"
+                                                                    type="text"
+                                                                    placeholder="التقدير"
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleAdditionalChange(
+                                                                            e,
+                                                                            index,
+                                                                            "تقدير"
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </th>
+                                                            <th scope="col">
+                                                                <input
+                                                                    className="form-control w-50 mx-auto"
+                                                                    type="text"
+                                                                    placeholder="النسبة"
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleAdditionalChange(
+                                                                            e,
+                                                                            index,
+                                                                            "نسبة"
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </th>
+                                                            <th scope="col">
+                                                                <input
+                                                                    className="form-control w-50 mx-auto"
+                                                                    type="text"
+                                                                    placeholder="المجموع"
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleAdditionalChange(
+                                                                            e,
+                                                                            index,
+                                                                            "مجموع"
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </th>
                                                         </tr>
                                                     </>
                                                 );

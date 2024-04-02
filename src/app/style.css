@@ -58,8 +58,8 @@ nav .list ul li a.active::before {
     position: absolute;
     border-radius: 50%;
     top: 50%;
-    right: -10px;
-    transform: translateY(-50%);
+    right: -20px;
+    transform: translate(50%, -50%);
     filter: drop-shadow(0 0 5px var(--activeLink));
 }
 nav .footer-nav {
