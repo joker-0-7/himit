@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const { default: Header } = require("../../components/Headr");
 const { default: Nav } = require("../../components/Nav");
@@ -38,14 +37,14 @@ const AddCommittees = () => {
         }
         const data = [];
         users.forEach((user) => {
-            const setNum = user.seatingNumbers.join('');
+            const setNum = user.seatingNumbers.join("");
             arr.forEach((num) => {
                 if (setNum.includes(String(num))) {
                     committe.from = undefined;
                     committe.to = undefined;
                     user.committe = committe;
                     data.push(user);
-                    console.log(user)
+                    console.log(user);
                 }
             });
         });
@@ -54,13 +53,16 @@ const AddCommittees = () => {
                 `${process.env.NEXT_PUBLIC_API}/users/committe`,
                 data
             );
-            toast.success('تم اضافة البيانات بنجاح')
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
     const handleChange = (e) => {
         setCommitte({ ...committe, [e.target.name]: e.target.value });
+    };
+    const numCommitteFun = () => {
+        //  count[category][i].committeeNumber =
+        //                 String(currentNum).split("");
     };
     return (
         <div className="add-committe">
@@ -110,31 +112,12 @@ const AddCommittees = () => {
                                             </select>
                                         </div>
                                         <div className="Squad col-lg-6 col-sm-12">
-                                            <select
+                                            <input
+                                                type="text"
+                                                placeholder="اكتب رقم اللجنه"
                                                 className="form-control"
-                                                onChange={handleChange}
-                                                name="squad"
-                                            >
-                                                <option
-                                                    value="يرجي اختيار الفرقة"
-                                                    selected
-                                                    disabled
-                                                >
-                                                    يرجي اختيار الفرقة
-                                                </option>
-                                                <option value="الفرقة الأولي">
-                                                    الفرقة الأولي
-                                                </option>
-                                                <option value="الفرقة الثانية">
-                                                    الفرقة الثانية
-                                                </option>
-                                                <option value="الفرقة الثالثة">
-                                                    الفرقة الثالثة
-                                                </option>
-                                                <option value="الفرقة الرابعة">
-                                                    الفرقة الرابعة
-                                                </option>
-                                            </select>
+                                                onChange={numCommitteFun}
+                                            />
                                         </div>
                                         <div className="dor col-lg-6 col-sm-12">
                                             <input

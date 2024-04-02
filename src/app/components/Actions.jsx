@@ -10,6 +10,7 @@ const Actions = ({ showModal, user, editStudent, id }) => {
                     width={25}
                     height={25}
                     alt="edit"
+                    style={{ cursor: "pointer" }}
                     onClick={() => {
                         editStudent(id);
                     }}
@@ -25,6 +26,7 @@ const Actions = ({ showModal, user, editStudent, id }) => {
                     <Image
                         src="/images/icons/actions/delete.png"
                         width={25}
+                        style={{ cursor: "pointer" }}
                         height={25}
                         alt="del"
                     />

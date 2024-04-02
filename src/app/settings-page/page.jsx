@@ -123,46 +123,6 @@ const Settings = () => {
                                 >
                                     <MainSetting />
                                 </div>
-                                <div
-                                    className="tab-pane fade"
-                                    id="faculty-departments"
-                                    role="tabpanel"
-                                    aria-labelledby="faculty-departments-tab"
-                                    tabIndex={0}
-                                >
-                                    <FacultyDepartments />
-                                </div>
-                                <div
-                                    className="tab-pane fade"
-                                    id="institute-vision"
-                                    role="tabpanel"
-                                    aria-labelledby="institute-vision-tab"
-                                    tabIndex={0}
-                                >
-                                    <VisionAndMission
-                                        handleSubmit={handleSubmit}
-                                    />
-                                </div>
-                                <div
-                                    className="tab-pane fade"
-                                    id="goal-application"
-                                    role="tabpanel"
-                                    aria-labelledby="goal-application-tab"
-                                    tabIndex={0}
-                                >
-                                    <GoalApplication
-                                        handleSubmit={handleSubmit}
-                                    />
-                                </div>
-                                <div
-                                    className="tab-pane fade"
-                                    id="usage-policy"
-                                    role="tabpanel"
-                                    aria-labelledby="usage-policy-tab"
-                                    tabIndex={0}
-                                >
-                                    <UsagePolicy handleSubmit={handleSubmit} />
-                                </div>
                             </div>
                         </div>
                     </div>

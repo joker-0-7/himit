@@ -39,7 +39,6 @@ function ExamsTable() {
             console.log(error);
             toast.error(error.response.data.msg);
         }
-        console.log(materials);
     };
     const handleSubjectChange = (e) => {
         setSubject(e.target.value);
@@ -129,6 +128,7 @@ function ExamsTable() {
                                                             name="type-exam"
                                                             className="form-check-input float-none"
                                                             id="one"
+                                                            value="ميد ترم"
                                                             onChange={(e) => {
                                                                 setType(
                                                                     e.target
@@ -149,6 +149,7 @@ function ExamsTable() {
                                                             name="type-exam"
                                                             className="form-check-input float-none"
                                                             id="two"
+                                                            value="فاينال"
                                                             onChange={(e) => {
                                                                 setType(
                                                                     e.target
@@ -169,6 +170,7 @@ function ExamsTable() {
                                                             name="type-exam"
                                                             className="form-check-input float-none"
                                                             id="three"
+                                                            value="تخلفات"
                                                             onChange={(e) => {
                                                                 setType(
                                                                     e.target

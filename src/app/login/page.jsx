@@ -30,7 +30,7 @@ const Login = () => {
             .then((res) => {
                 setState(res.data);
                 window.localStorage.setItem("auth", JSON.stringify(res.data));
-                router.push("/student");
+                router.push("/students");
             })
             .catch((err) => {
                 console.log(err);

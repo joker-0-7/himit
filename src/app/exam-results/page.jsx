@@ -86,6 +86,33 @@ const ExamResults = () => {
                     return user;
                 });
             });
+        } else if (type == "فاينال") {
+            setUsers((prevUsers) => {
+                return prevUsers.map((user) => {
+                    if (user._id === userId) {
+                        const updatedMarkers = user.final.map((marker) => {
+                            if (marker.name === name) {
+                                return {
+                                    ...marker,
+                                    value,
+                                };
+                            }
+                            return marker;
+                        });
+                        if (
+                            !user.final.some((marker) => marker.name === name)
+                        ) {
+                            updatedMarkers.push({ name, value });
+                        }
+                        return {
+                            ...user,
+                            final: updatedMarkers,
+                        };
+                    }
+                    console.log(user);
+                    return user;
+                });
+            });
         } else {
             setUsers((prevUsers) => {
                 return prevUsers.map((user) => {

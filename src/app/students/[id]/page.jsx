@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 const EditStudint = () => {
     const [image, setImage] = useState();
     const [disabled, setDisable] = useState(false);
+
     const [imgFile, setImgFile] = useState("");
     const router = useRouter();
     const [student, setStudent] = useState({

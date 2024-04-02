@@ -1,11 +1,5 @@
 const Lists = [
     {
-        id: 1,
-        name: "الرئسية",
-        icon: "/images/icons/home.png",
-        link: "/",
-    },
-    {
         id: 2,
         name: "الجداول الدراسية",
         icon: "/images/icons/class.png",
@@ -52,12 +46,6 @@ const Lists = [
         name: "التربية العسكرية",
         icon: "/images/icons/medal.png",
         link: "/military-education",
-    },
-    {
-        id: 10,
-        name: "الاشعارات",
-        icon: "/images/icons/alarm.png",
-        link: "/notifications",
     },
     {
         id: 11,
