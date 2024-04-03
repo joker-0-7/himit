@@ -106,16 +106,16 @@ const ExamResults = () => {
                 return prevUsers.map((user) => {
                     if (user._id === userId) {
                         const updatedMarkers = user.final.map((marker) => {
-                            if (marker.name === name) {
+                            if (final.name === name) {
                                 return {
-                                    ...marker,
+                                    ...final,
                                     value,
                                 };
                             }
-                            return marker;
+                            return final;
                         });
                         if (
-                            !user.final.some((marker) => marker.name === name)
+                            !user.final.some((marker) => final.name === name)
                         ) {
                             updatedMarkers.push({ name, value });
                         }
