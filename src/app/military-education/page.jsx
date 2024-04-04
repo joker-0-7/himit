@@ -20,11 +20,16 @@ const MilitaryEducation = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(choseStu);
         let spltNum = num.split("");
         try {
             const data = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/mility-edu`,
                 { choseStu, startDate, endDate, spltNum }
+            );
+            const rus = await axios.post(
+                `${process.env.NEXT_PUBLIC_API}/users/committe`,
+                { choseStu }
             );
             toast.success(data.data.msg);
         } catch (err) {

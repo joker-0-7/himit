@@ -76,7 +76,10 @@ const Student = () => {
             <div className="container  pt-5">
                 <div className="form pb-5">
                     <form>
-                        <div className="search d-flex">
+                        <div
+                            className="search d-flex"
+                            style={{ height: "60px" }}
+                        >
                             <input type="text" placeholder="بحث" />
                             <span>
                                 <Image

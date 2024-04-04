@@ -22,6 +22,7 @@ const EditStudint = () => {
         section: "",
         password: "",
         Specialization: "",
+        seatingNumbers: "",
     });
     useEffect(() => {
         getData();
@@ -55,6 +56,7 @@ const EditStudint = () => {
         formdata.append("section", student.section);
         formdata.append("password", student.password);
         formdata.append("Specialization", student.Specialization);
+        formdata.append("seatingNumbers", student.seatingNumbers.split(""));
         try {
             const data = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/update-student/${

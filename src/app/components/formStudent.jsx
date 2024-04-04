@@ -122,6 +122,24 @@ const FormStudent = ({
                                 />
                             </div>
                         </div>
+                        {page == "editStudint" && (
+                            <div className="col-6">
+                                <div className="seating-numbers">
+                                    <input
+                                        type="text"
+                                        name="seatingNumbers"
+                                        onChange={handleChange}
+                                        value={
+                                            student &&
+                                            student.seatingNumbers &&
+                                            student.seatingNumbers.join("")
+                                        }
+                                        className="form-control"
+                                        placeholder="رقم الجلوس"
+                                    />
+                                </div>
+                            </div>
+                        )}
                         <div className="col-6">
                             <div className="study-num">
                                 <input

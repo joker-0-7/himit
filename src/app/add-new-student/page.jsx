@@ -7,6 +7,7 @@ import FormStudent from "../components/formStudent";
 import "./add-new-student.css";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import Header from "../components/Headr";
 
 const AddStudent = () => {
     const [image, setImage] = useState();
@@ -65,14 +66,7 @@ const AddStudent = () => {
         <div className="add-student">
             <Nav />
             <div className="container">
-                <div className="header">
-                    <Image
-                        src="/images/logo/dark-logo.png"
-                        width={73}
-                        height={73}
-                        alt="logo"
-                    />
-                </div>
+                <Header />
                 <div className="form">
                     <div className="main pb-5">
                         <h1>تسجيل طالب جديد</h1>

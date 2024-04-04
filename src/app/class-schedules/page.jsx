@@ -84,11 +84,25 @@ function ClassSchedules() {
                                     return (
                                         <div className="col-4" key={ele._id}>
                                             <div
-                                                className="box rounded-1 py-4 px-3 mt-4"
+                                                className="box rounded-2 py-4 px-3 mt-4 position-relative"
                                                 style={{
                                                     backgroundColor: "#E9E9E9",
                                                 }}
                                             >
+                                                <div
+                                                    className="img position-absolute"
+                                                    style={{
+                                                        bottom: 0,
+                                                        left: 0,
+                                                    }}
+                                                >
+                                                    <Image
+                                                        src="/images/logo/opacity-logo.png"
+                                                        width={100}
+                                                        height={100}
+                                                        alt="image"
+                                                    />
+                                                </div>
                                                 <div className="head">
                                                     <div className="name">
                                                         <h1>
@@ -100,6 +114,9 @@ function ClassSchedules() {
                                                 </div>
                                                 <div className="section">
                                                     <h3>{ele.classRoom}</h3>
+                                                </div>
+                                                <div className="type">
+                                                    <h3>{ele.type}</h3>
                                                 </div>
                                                 <div className="action">
                                                     <Actions

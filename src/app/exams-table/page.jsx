@@ -12,6 +12,25 @@ function ExamsTable() {
     const [classRoom, setClassRoom] = useState();
     const [type, setType] = useState();
     const [subject, setSubject] = useState("");
+
+    // const handleDayChange = (selectedDay) => {
+    //     const selectedDateTime = selectedDay.target.value;
+    //     const selectedDate = new Date(selectedDateTime);
+    //     const formattedDateTime = selectedDate.toISOString();
+
+    //     // Get the name of the day
+    //     const dayName = days[selectedDate.getDay()];
+
+    //     setMaterials((prevMaterials) => ({
+    //         ...prevMaterials,
+    //         [dayName]: {
+    //             subject: subject,
+    //             time: formattedDateTime,
+    //         },
+    //     }));
+    //     setSubject("");
+    // };
+
     const handleDayChange = (selectedDay) => {
         const selectedDateTime = selectedDay.target.value;
         const selectedDate = new Date(selectedDateTime);

@@ -106,16 +106,16 @@ const ExamResults = () => {
                 return prevUsers.map((user) => {
                     if (user._id === userId) {
                         const updatedMarkers = user.final.map((marker) => {
-                            if (final.name === name) {
+                            if (marker.name === name) {
                                 return {
-                                    ...final,
+                                    ...marker,
                                     value,
                                 };
                             }
-                            return final;
+                            return marker;
                         });
                         if (
-                            !user.final.some((marker) => final.name === name)
+                            !user.final.some((marker) => marker.name === name)
                         ) {
                             updatedMarkers.push({ name, value });
                         }
@@ -181,7 +181,7 @@ const ExamResults = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const rus = axios.post(
+            const rus = await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/committe`,
                 users
             );
