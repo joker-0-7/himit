@@ -384,7 +384,7 @@ const ExamResults = () => {
                                                                         handleAdditionalChange(
                                                                             e,
                                                                             index,
-                                                                            "تقدير"
+                                                                            "التقدير"
                                                                         )
                                                                     }
                                                                 />
@@ -400,7 +400,7 @@ const ExamResults = () => {
                                                                         handleAdditionalChange(
                                                                             e,
                                                                             index,
-                                                                            "نسبة"
+                                                                            "النسبة"
                                                                         )
                                                                     }
                                                                 />
@@ -416,7 +416,7 @@ const ExamResults = () => {
                                                                         handleAdditionalChange(
                                                                             e,
                                                                             index,
-                                                                            "مجموع"
+                                                                            "المجموع"
                                                                         )
                                                                     }
                                                                 />
