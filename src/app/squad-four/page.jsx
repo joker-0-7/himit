@@ -13,12 +13,10 @@ const SquadFour = () => {
     const [data, setData] = useState({});
     const [disabled, setDisable] = useState(false);
     const router = useRouter();
+
     useEffect(() => {
         getData();
     }, []);
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
 
     const getData = async () => {
         try {
@@ -30,6 +28,24 @@ const SquadFour = () => {
             console.log(err);
         }
     };
+
+    const calculateTotal = (studentId) => {
+        const fields = ["one", "two", "three", "four"];
+        let total = 0;
+        fields.forEach((field) => {
+            const value = parseFloat(data[studentId]?.[field]) || 0;
+            total += value;
+        });
+        return total;
+    };
+
+    const calculatePercentage = (studentId) => {
+        const total = calculateTotal(studentId);
+        // تحويل النسبة إلى قيمة بين 0 و1000
+        const percentage = (total / 4000) * 100;
+        return percentage;
+    };
+
     const handelChange = (e, studentId) => {
         const fieldName = e.target.getAttribute("data-field");
         const value = e.target.type === "radio" ? e.target.id : e.target.value;
@@ -42,11 +58,12 @@ const SquadFour = () => {
             },
         }));
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisable(true);
         try {
-            const { res } = await axios.post(
+            await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/add-cumulative`,
                 data
             );
@@ -58,6 +75,7 @@ const SquadFour = () => {
             setDisable(false);
         }
     };
+
     return (
         <div className="squad-four">
             <div className="row">
@@ -77,13 +95,13 @@ const SquadFour = () => {
                                     </div>
                                 </div>
                                 <div className="col-2">
-                                    <span
+                                    <button
                                         className="btn btn-dark"
                                         onClick={handleSubmit}
                                         disabled={disabled}
                                     >
-                                        send
-                                    </span>
+                                        Send
+                                    </button>
                                 </div>
                             </div>
                             <div className="users mt-5">
@@ -175,25 +193,21 @@ const SquadFour = () => {
                                                             type="text"
                                                             className="form-control w-50"
                                                             data-field="cumulative"
-                                                            onChange={(e) => {
-                                                                handelChange(
-                                                                    e,
-                                                                    student._id
-                                                                );
-                                                            }}
+                                                            value={calculateTotal(
+                                                                student._id
+                                                            )}
+                                                            readOnly
                                                         />
                                                     </td>
                                                     <td>
                                                         <input
                                                             type="text"
                                                             className="form-control w-50"
-                                                            data-field={"ratio"}
-                                                            onChange={(e) => {
-                                                                handelChange(
-                                                                    e,
-                                                                    student._id
-                                                                );
-                                                            }}
+                                                            data-field="ratio"
+                                                            value={calculatePercentage(
+                                                                student._id
+                                                            )}
+                                                            readOnly
                                                         />
                                                     </td>
                                                     <td>
@@ -233,14 +247,14 @@ const SquadFour = () => {
                                                                             student._id
                                                                         );
                                                                     }}
-                                                                    class="form-check-input"
+                                                                    className="form-check-input"
                                                                     name={
                                                                         student._id
                                                                     }
                                                                 />
                                                                 <label
                                                                     htmlFor={`done-${student._id}`}
-                                                                    class="form-check-label"
+                                                                    className="form-check-label"
                                                                 >
                                                                     اجتاز
                                                                 </label>
@@ -262,7 +276,7 @@ const SquadFour = () => {
                                                                             student._id
                                                                         );
                                                                     }}
-                                                                    class="form-check-input"
+                                                                    className="form-check-input"
                                                                     id={`not-${student._id}`}
                                                                     name={
                                                                         student._id
@@ -270,7 +284,7 @@ const SquadFour = () => {
                                                                 />
                                                                 <label
                                                                     htmlFor={`not-${student._id}`}
-                                                                    class="form-check-label"
+                                                                    className="form-check-label"
                                                                 >
                                                                     لم يجتاز
                                                                 </label>
