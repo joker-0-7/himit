@@ -15,7 +15,8 @@ const Nav = () => {
         setState(null);
     };
     return (
-        <nav className="nav pt-2 pb-5 pe-4 ps-1 col-2">
+        <div className="col-2">
+        <nav className="nav pt-2 pb-5 pe-4 ps-1">
             <div className="logo">
                 <div className="img">
                     <Image
@@ -104,6 +105,7 @@ const Nav = () => {
                 </div>
             </div>
         </nav>
+            </div>
     );
 };
 export default Nav;
