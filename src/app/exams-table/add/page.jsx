@@ -64,11 +64,9 @@ function ExamsTableAdd() {
     return (
         <div>
             <div className="row">
-                <div className="col-2">
                     <Nav />
-                </div>
                 <div className="col-10">
-                    <div className="container">
+                    <div className="container px-5">
                         <div className="row">
                             <div className="col-12">
                                 <Header />
