@@ -101,13 +101,11 @@ const MilitaryEducation = () => {
     return (
         <div className="military-education">
             <div className="row">
-                <div className="col-2">
                     <Nav />
-                </div>
                 <div className="col-10">
                     <div className="row">
                         <div className="col-12">
-                            <div className="container">
+                            <div className="container px-5">
                                 <Header />
                                 <div className="main-page">
                                     <div className="main-heading mb-5">
