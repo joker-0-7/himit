@@ -192,11 +192,9 @@ const ExamResults = () => {
     return (
         <div className="exam-results">
             <div className="row">
-                <div className="col-2">
                     <Nav />
-                </div>
                 <div className="col-10">
-                    <div className="container-fluid">
+                    <div className="container-fluid px-5">
                         <div className="row">
                             <div className="col-12">
                                 <Header />
