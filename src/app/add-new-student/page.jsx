@@ -63,9 +63,9 @@ const AddStudent = () => {
             });
     };
     return (
-        <div className="add-student">
+        <div className="add-student row">
             <Nav />
-            <div className="container">
+            <div className="container col-10 px-5">
                 <Header />
                 <div className="form">
                     <div className="main pb-5">
