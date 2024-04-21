@@ -15,7 +15,7 @@ const Nav = () => {
         setState(null);
     };
     return (
-        <nav className="nav pt-2 pb-5 pe-4 ps-1">
+        <nav className="nav pt-2 pb-5 pe-4 ps-1 col-2">
             <div className="logo">
                 <div className="img">
                     <Image
