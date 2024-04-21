@@ -19,9 +19,9 @@ const Settings = () => {
         setIsModalOpen(true);
     };
     return (
-        <div className="settings">
+        <div className="settings row">
             <Nav />
-            <div className="container">
+            <div className="container col-10 px-5">
                 <div className="row w-100">
                     <div className="col-12">
                         <Header />
