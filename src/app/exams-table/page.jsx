@@ -67,7 +67,7 @@ function ExamsTable() {
                             <div className="col-12">
                                 <Header />
                             </div>
-                                                            <div className="row">
+                                <div className="row">
                                     <div className="col-6">
                                         <h1>جداول الامتحانات</h1>
                                     </div>
