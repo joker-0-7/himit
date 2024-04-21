@@ -73,7 +73,7 @@ function ExamsTable() {
                                     </div>
                                     <div className="col-6 text-start">
                                         <Link
-                                            href="/class-schedules/add"
+                                            href="/exams-table/add"
                                             className="btn btn-dark me-auto"
                                         >
                                             اضافة جدول
