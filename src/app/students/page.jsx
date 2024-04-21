@@ -71,9 +71,9 @@ const Student = () => {
         }
     };
     return (
-        <div className="student">
+        <div className="student row">
             <Nav />
-            <div className="container  pt-5">
+            <div className="container col-10 px-5  pt-5">
                 <div className="form pb-5">
                     <form>
                         <div
