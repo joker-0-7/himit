@@ -97,9 +97,9 @@ const SeatingNumbers = () => {
         }
     };
     return isClient ? (
-        <div className="seating-numbers">
+        <div className="seating-numbers row">
             <Nav />
-            <div className="container">
+            <div className="container col-10 px-5">
                 <Header />
                 <form onSubmit={handleSubmit}>
                     <table className="table table-borderless">
