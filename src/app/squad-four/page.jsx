@@ -84,7 +84,21 @@ const SquadFour = () => {
             setDisable(false);
         }
     };
-
+    const setSection = async (e) => {
+        const squadValue = e.target.value;
+        try {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_API}/users/students`
+            );
+            const filtering =
+                squadValue !== "DEFAULT"
+                    ? data.filter((s) => s.section === squadValue)
+                    : data;
+            setUsers(filtering);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <div className="squad-four">
             <div className="row">
@@ -98,7 +112,10 @@ const SquadFour = () => {
                             <div className="row">
                                 <div className="col-10">
                                     <div className="row">
-                                        <Filter />
+                                         <Filter
+                                            page="four"
+                                            setSection={setSection}
+                                        />
                                     </div>
                                 </div>
                                 <div className="col-2">
