@@ -15,6 +15,7 @@ const AddCommittees = () => {
         from: "",
         to: "",
     });
+    const [numm, setNum] = useState("");
     const [users, setUsers] = useState([]);
     const getData = async () => {
         try {
@@ -40,6 +41,7 @@ const AddCommittees = () => {
             const setNum = user.seatingNumbers.join("");
             arr.forEach((num) => {
                 if (setNum.includes(String(num))) {
+                    user.committeeNumber = numCommitteFun(numm);
                     committe.from = undefined;
                     committe.to = undefined;
                     user.committe = committe;
@@ -60,16 +62,17 @@ const AddCommittees = () => {
     const handleChange = (e) => {
         setCommitte({ ...committe, [e.target.name]: e.target.value });
     };
-    const numCommitteFun = () => {
-        //  count[category][i].committeeNumber =
-        //                 String(currentNum).split("");
+    const numCommitteFun = (num) => {
+        return String(num).split("");
     };
     return (
         <div className="add-committe">
             <div className="row">
+                <div className="col-2">
                     <Nav />
+                </div>
                 <div className="col-10">
-                    <div className="container px-5">
+                    <div className="container">
                         <div className="row">
                             <div className="col-12">
                                 <Header />
@@ -114,7 +117,9 @@ const AddCommittees = () => {
                                                 type="text"
                                                 placeholder="اكتب رقم اللجنه"
                                                 className="form-control"
-                                                onChange={numCommitteFun}
+                                                onChange={(e) => {
+                                                    setNum(e.target.value);
+                                                }}
                                             />
                                         </div>
                                         <div className="dor col-lg-6 col-sm-12">
