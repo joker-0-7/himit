@@ -60,13 +60,22 @@ const SquadFour = () => {
     };
 
     const handleSubmit = async (e) => {
+        const updatedData = { ...data };
+        Object.keys(updatedData).forEach((studentId) => {
+            updatedData[studentId] = {
+                ...updatedData[studentId],
+                cumulative: calculateTotal(studentId),
+                ratio: calculatePercentage(studentId),
+            };
+        });
         e.preventDefault();
         setDisable(true);
         try {
             await axios.post(
                 `${process.env.NEXT_PUBLIC_API}/users/add-cumulative`,
-                data
+                updatedData
             );
+
             router.push("/students");
             setDisable(false);
         } catch (err) {
