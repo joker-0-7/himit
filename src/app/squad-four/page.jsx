@@ -60,6 +60,7 @@ const SquadFour = () => {
     };
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         const updatedData = { ...data };
         Object.keys(updatedData).forEach((studentId) => {
             updatedData[studentId] = {
@@ -68,7 +69,6 @@ const SquadFour = () => {
                 ratio: calculatePercentage(studentId),
             };
         });
-        e.preventDefault();
         setDisable(true);
         try {
             await axios.post(
