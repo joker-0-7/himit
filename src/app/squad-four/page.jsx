@@ -65,8 +65,8 @@ const SquadFour = () => {
         Object.keys(updatedData).forEach((studentId) => {
             updatedData[studentId] = {
                 ...updatedData[studentId],
-                cumulative: calculateTotal(studentId),
-                ratio: calculatePercentage(studentId),
+                                cumulative: String(calculateTotal(studentId)),
+                ratio: String(calculatePercentage(studentId)),
             };
         });
         setDisable(true);
