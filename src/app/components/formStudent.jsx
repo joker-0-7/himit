@@ -132,7 +132,7 @@ const FormStudent = ({
                                         value={
                                             student &&
                                             student.seatingNumbers &&
-                                            student.seatingNumbers.join("")
+                                            student.seatingNumbers.join
                                         }
                                         className="form-control"
                                         placeholder="رقم الجلوس"
