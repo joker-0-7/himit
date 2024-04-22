@@ -57,29 +57,31 @@ function ExamsTable() {
         setOpen(false);
         getData();
     };
-    return (
+      return (
         <div>
             <div className="row">
+                <div className="col-2">
                     <Nav />
+                </div>
                 <div className="col-10">
-                    <div className="container px-5">
-                        <div className="row">                            
+                    <div className="container">
+                        <div className="row">
                             <div className="col-12">
                                 <Header />
                             </div>
-                                <div className="row">
-                                    <div className="col-6">
-                                        <h1>جداول الامتحانات</h1>
-                                    </div>
-                                    <div className="col-6 text-start">
-                                        <Link
-                                            href="/exams-table/add"
-                                            className="btn btn-dark me-auto"
-                                        >
-                                            اضافة جدول
-                                        </Link>
-                                    </div>
+                            <div className="row">
+                                <div className="col-6">
+                                    <h1>جداول الامتحانات</h1>
                                 </div>
+                                <div className="col-6 text-start">
+                                    <Link
+                                        href="/exams-table/add"
+                                        className="btn btn-dark me-auto"
+                                    >
+                                        اضافة جدول
+                                    </Link>
+                                </div>
+                            </div>
                             {data.length > 0 ? (
                                 data.map((ele) => {
                                     return (
