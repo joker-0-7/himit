@@ -71,8 +71,7 @@ const SeatingNumbers = () => {
                 for (let i = 0; i < count[category].length; i++) {
                     let num = String(currentFrom);
                     count[category][i].seatingNumbers = num.split("");
-                    count[category][i].committeeNumber =
-                        String(currentNum).split("");
+                    count[category][i].group = String(currentNum);
                     data.push(count[category][i]);
                     currentFrom++;
                     console.log(currentFrom);
