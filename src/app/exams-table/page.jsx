@@ -8,6 +8,8 @@ import DefaultPage from "../components/DefaultPage";
 import Actions from "../components/Actions";
 import Image from "next/image";
 import ModalCopmonent from "../components/Modal";
+import Link from "next/link";
+
 
 function ExamsTable() {
     const [materials, setMaterials] = useState({});
