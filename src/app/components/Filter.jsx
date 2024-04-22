@@ -1,4 +1,4 @@
-const Filter = ({ setSquad, setSection }) => {
+const Filter = ({ setSquad, setSection, page }) => {
     return (
         <>
             <div className="section col-4">
@@ -12,17 +12,19 @@ const Filter = ({ setSquad, setSection }) => {
                     <option value="ادارة اعمال">ادارة اعمال</option>
                 </select>
             </div>
-            <div className="Squad col-4">
-                <select className="form-control" onChange={setSquad}>
-                    <option value="يرجي اختيار الفرقة" selected disabled>
-                        يرجي اختيار الفرقة
-                    </option>
-                    <option value="الفرقة الأولي">الفرقة الأولي</option>
-                    <option value="الفرقة الثانية">الفرقة الثانية</option>
-                    <option value="الفرقة الثالثة">الفرقة الثالثة</option>
-                    <option value="الفرقة الرابعة">الفرقة الرابعة</option>
-                </select>
-            </div>
+            {page !== "four" && (
+                <div className="Squad col-4">
+                    <select className="form-control" onChange={setSquad}>
+                        <option value="يرجي اختيار الفرقة" selected disabled>
+                            يرجي اختيار الفرقة
+                        </option>
+                        <option value="الفرقة الأولي">الفرقة الأولي</option>
+                        <option value="الفرقة الثانية">الفرقة الثانية</option>
+                        <option value="الفرقة الثالثة">الفرقة الثالثة</option>
+                        <option value="الفرقة الرابعة">الفرقة الرابعة</option>
+                    </select>
+                </div>
+            )}
         </>
     );
 };
